@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A2EBF76B-3FF8-4934-8C47-A305901B69E1}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GIS服务器</RootNamespace>
+    <AssemblyName>GIS服务器</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\调试输出\通用GIS\服务器\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>K.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="INET3">
+      <HintPath>..\..\LIB\INET3.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\LIB\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Utility">
+      <HintPath>..\..\LIB\Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="通用命令">
+      <HintPath>..\..\LIB\通用命令.dll</HintPath>
+    </Reference>
+    <Reference Include="通用访问">
+      <HintPath>..\..\LIB\通用访问.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="B控制器.cs" />
+    <Compile Include="B通用命令.cs" />
+    <Compile Include="IB数据库.cs" />
+    <Compile Include="H行政区位置.cs" />
+    <Compile Include="IBGPS过滤.cs" />
+    <Compile Include="IB日志.cs" />
+    <Compile Include="IDGPS数据.cs" />
+    <Compile Include="ID数据库.cs" />
+    <Compile Include="服务管理\F主窗口.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="服务管理\F主窗口.Designer.cs">
+      <DependentUpon>F主窗口.cs</DependentUpon>
+    </Compile>
+    <Compile Include="服务管理\F访问入口.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="服务管理\F访问入口.Designer.cs">
+      <DependentUpon>F访问入口.cs</DependentUpon>
+    </Compile>
+    <Compile Include="服务管理\F服务.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="服务管理\F服务.Designer.cs">
+      <DependentUpon>F服务.cs</DependentUpon>
+    </Compile>
+    <Compile Include="服务管理\F服务_已启动.Designer.cs">
+      <DependentUpon>F服务_已启动.cs</DependentUpon>
+    </Compile>
+    <Compile Include="服务管理\F服务_未启动.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="服务管理\F服务_未启动.Designer.cs">
+      <DependentUpon>F服务_未启动.cs</DependentUpon>
+    </Compile>
+    <Compile Include="服务管理\F数据库.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="服务管理\F数据库.Designer.cs">
+      <DependentUpon>F数据库.cs</DependentUpon>
+    </Compile>
+    <Compile Include="服务管理\F服务_未安装.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="服务管理\F服务_未安装.Designer.cs">
+      <DependentUpon>F服务_未安装.cs</DependentUpon>
+    </Compile>
+    <Compile Include="服务管理\F服务_已启动.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="D数据库.cs" />
+    <Compile Include="IBGPS数据.cs" />
+    <Compile Include="IB插件.cs" />
+    <Compile Include="IB订阅.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service1.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Service1.Designer.cs">
+      <DependentUpon>Service1.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="服务管理\F主窗口.resx">
+      <DependentUpon>F主窗口.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="服务管理\F访问入口.resx">
+      <DependentUpon>F访问入口.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="服务管理\F服务.resx">
+      <DependentUpon>F服务.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="服务管理\F服务_已启动.resx">
+      <DependentUpon>F服务_已启动.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="服务管理\F服务_未启动.resx">
+      <DependentUpon>F服务_未启动.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="服务管理\F数据库.resx">
+      <DependentUpon>F数据库.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="服务管理\F服务_未安装.resx">
+      <DependentUpon>F服务_未安装.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Service1.resx">
+      <DependentUpon>Service1.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DTO\DTO.csproj">
+      <Project>{5a8fb4fd-aab7-4384-90f6-3d58eb7030f5}</Project>
+      <Name>DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\插件接口\插件接口.csproj">
+      <Project>{ad7406e3-bf71-4c70-b61c-46d8b0563bd6}</Project>
+      <Name>插件接口</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="K.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,60 @@
+﻿namespace GIS服务器.服务管理
+{
+    partial class F服务
+    {
+        /// <summary> 
+        /// 必需的设计器变量。
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary> 
+        /// 清理所有正在使用的资源。
+        /// </summary>
+        /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region 组件设计器生成的代码
+
+        /// <summary> 
+        /// 设计器支持所需的方法 - 不要
+        /// 使用代码编辑器修改此方法的内容。
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.u容器1 = new Utility.WindowsForm.U容器();
+            this.SuspendLayout();
+            // 
+            // u容器1
+            // 
+            this.u容器1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.u容器1.Location = new System.Drawing.Point(0, 0);
+            this.u容器1.Name = "u容器1";
+            this.u容器1.Size = new System.Drawing.Size(900, 500);
+            this.u容器1.TabIndex = 0;
+            // 
+            // F状态
+            // 
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.Controls.Add(this.u容器1);
+            this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Name = "F状态";
+            this.Size = new System.Drawing.Size(900, 500);
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Timer timer1;
+        private Utility.WindowsForm.U容器 u容器1;
+    }
+}

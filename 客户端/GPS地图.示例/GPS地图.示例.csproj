@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2F48357C-E02A-4CEB-BBD3-F834EB88B4A1}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GPS地图.示例</RootNamespace>
+    <AssemblyName>GPS地图.示例</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\调试输出\通用GIS\客户端\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>K.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Utility">
+      <HintPath>..\..\LIB\Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="显示地图">
+      <HintPath>..\..\LIB\显示地图.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="F主窗口.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="F主窗口.Designer.cs">
+      <DependentUpon>F主窗口.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F号码列表.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="F号码列表.Designer.cs">
+      <DependentUpon>F号码列表.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F号码信息.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="F号码信息.Designer.cs">
+      <DependentUpon>F号码信息.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F扩展.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="F扩展.Designer.cs">
+      <DependentUpon>F扩展.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F按频率回放.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="F按频率回放.Designer.cs">
+      <DependentUpon>F按频率回放.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F显示模板.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="F显示模板.Designer.cs">
+      <DependentUpon>F显示模板.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F实时显示.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="F按时间回放.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="F按时间回放.Designer.cs">
+      <DependentUpon>F按时间回放.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F实时显示_号码段.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="F实时显示_号码段.Designer.cs">
+      <DependentUpon>F实时显示_号码段.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F实时显示_号码本.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="F实时显示_号码本.Designer.cs">
+      <DependentUpon>F实时显示_号码本.cs</DependentUpon>
+    </Compile>
+    <Compile Include="F登录.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="F登录.Designer.cs">
+      <DependentUpon>F登录.cs</DependentUpon>
+    </Compile>
+    <Compile Include="M个号.cs" />
+    <Compile Include="M部门.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="圈选\Enum.cs" />
+    <Compile Include="圈选\F圈选_单次.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="圈选\F圈选_单次.designer.cs">
+      <DependentUpon>F圈选_单次.cs</DependentUpon>
+    </Compile>
+    <Compile Include="圈选\F圈选_多次.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="圈选\F圈选_多次.Designer.cs">
+      <DependentUpon>F圈选_多次.cs</DependentUpon>
+    </Compile>
+    <Compile Include="圈选\F圈选_圆形.cs" />
+    <Compile Include="测距\F测距.cs" />
+    <EmbeddedResource Include="F主窗口.resx">
+      <DependentUpon>F主窗口.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F号码列表.resx">
+      <DependentUpon>F号码列表.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F号码信息.resx">
+      <DependentUpon>F号码信息.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F扩展.resx">
+      <DependentUpon>F扩展.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F按时间回放.resx">
+      <DependentUpon>F按时间回放.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F按频率回放.resx">
+      <DependentUpon>F按频率回放.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F显示模板.resx">
+      <DependentUpon>F显示模板.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F实时显示_号码段.resx">
+      <DependentUpon>F实时显示_号码段.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F实时显示_号码本.resx">
+      <DependentUpon>F实时显示_号码本.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="F登录.resx">
+      <DependentUpon>F登录.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="圈选\F圈选_单次.resx">
+      <DependentUpon>F圈选_单次.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="圈选\F圈选_多次.resx">
+      <DependentUpon>F圈选_多次.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="App.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DTO\DTO.csproj">
+      <Project>{5a8fb4fd-aab7-4384-90f6-3d58eb7030f5}</Project>
+      <Name>DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GPS\GPS.csproj">
+      <Project>{5cc6b037-95fe-4140-934e-fbf419c9c057}</Project>
+      <Name>GPS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GPS地图\GPS地图.csproj">
+      <Project>{35b48353-0d73-4c58-a491-c270b6fa73ed}</Project>
+      <Name>GPS地图</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="K.ico" />
+    <None Include="Resources\测距终点.png" />
+    <None Include="Resources\测距起点.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

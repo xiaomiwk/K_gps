@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{35B48353-0D73-4C58-A491-C270B6FA73ED}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GPS地图</RootNamespace>
+    <AssemblyName>GPS地图</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\调试输出\通用GIS\客户端\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Utility">
+      <HintPath>..\..\LIB\Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="显示地图">
+      <HintPath>..\..\LIB\显示地图.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DTO\Enum.cs" />
+    <Compile Include="DTO\M服务器.cs" />
+    <Compile Include="DTO\MGPS状态配置.cs" />
+    <Compile Include="DTO\M静态轨迹.cs" />
+    <Compile Include="DTO\M图标.cs" />
+    <Compile Include="IBLL\IB回放_按频率.cs" />
+    <Compile Include="IBLL\IB服务器配置.cs" />
+    <Compile Include="IBLL\IBGPS状态配置.cs" />
+    <Compile Include="IBLL\IB地图路径配置.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IBLL\IB回放_按时间.cs" />
+    <Compile Include="IBLL\实现\B回放_按频率.cs" />
+    <Compile Include="IBLL\实现\B服务器配置.cs" />
+    <Compile Include="IBLL\实现\BGPS状态配置.cs" />
+    <Compile Include="IBLL\实现\B回放_按时间.cs" />
+    <Compile Include="IBLL\实现\B地图路径配置.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IBLL\实现\BGPS状态检测.cs" />
+    <Compile Include="H接口注册.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IView\IV回放.cs" />
+    <Compile Include="Presenter\P回放_按频率.cs" />
+    <Compile Include="Presenter\P配置.cs" />
+    <Compile Include="Presenter\PGPS.cs" />
+    <Compile Include="Presenter\P回放_按时间.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="View\F回放_按频率.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\F回放_按频率.Designer.cs">
+      <DependentUpon>F回放_按频率.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\F控件.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="IView\IV配置.cs" />
+    <Compile Include="IView\IV地图.cs" />
+    <Compile Include="View\FGPS.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\FGPS.Designer.cs">
+      <DependentUpon>FGPS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IService\IS数据交互.cs" />
+    <Compile Include="View\F纯地图.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\F纯地图.Designer.cs">
+      <DependentUpon>F纯地图.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\F配置.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\F配置.Designer.cs">
+      <DependentUpon>F配置.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\配置\F配置_GPS状态.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\配置\F配置_GPS状态.Designer.cs">
+      <DependentUpon>F配置_GPS状态.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\配置\F配置_服务器.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\配置\F配置_服务器.Designer.cs">
+      <DependentUpon>F配置_服务器.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IView\IV控件.cs" />
+    <Compile Include="View\F回放_按时间.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\F回放_按时间.Designer.cs">
+      <DependentUpon>F回放_按时间.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\配置\F配置_地图路径.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\配置\F配置_地图路径.Designer.cs">
+      <DependentUpon>F配置_地图路径.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Presenter\H扩展方法.cs" />
+    <Compile Include="IService\IS显示GPS.cs" />
+    <Compile Include="DTO\M回放.cs" />
+    <Compile Include="DTO\M图标显示参数.cs" />
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="View\F回放_按频率.resx">
+      <DependentUpon>F回放_按频率.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\FGPS.resx">
+      <DependentUpon>FGPS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\F纯地图.resx">
+      <DependentUpon>F纯地图.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\F配置.resx">
+      <DependentUpon>F配置.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\配置\F配置_GPS状态.resx">
+      <DependentUpon>F配置_GPS状态.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\配置\F配置_服务器.resx">
+      <DependentUpon>F配置_服务器.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\F回放_按时间.resx">
+      <DependentUpon>F回放_按时间.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\配置\F配置_地图路径.resx">
+      <DependentUpon>F配置_地图路径.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="离线地图\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="GPS地图.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\很久未更新.png" />
+    <None Include="Resources\短期未更新.png" />
+    <None Include="Resources\短期未更新间隔.png" />
+    <None Include="Resources\很久未更新间隔.png" />
+    <None Include="Resources\基站.png" />
+    <None Include="Resources\标注.png" />
+    <None Include="Resources\轨迹点.png" />
+    <None Include="Resources\开始.png" />
+    <None Include="Resources\结束.png" />
+    <None Include="Resources\最近更新.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DTO\DTO.csproj">
+      <Project>{5a8fb4fd-aab7-4384-90f6-3d58eb7030f5}</Project>
+      <Name>DTO</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>if /I "$(ConfigurationName)" == "Release" Eazfuscator.NET.exe "$(TargetPath)" --msbuild-project-path "$(ProjectPath)" --msbuild-project-configuration "$(ConfigurationName)" --msbuild-project-platform "$(PlatformName)" --msbuild-solution-path "$(SolutionPath)" -n --newline-flush -v 4.0</PostBuildEvent>
+  </PropertyGroup>
+</Project>
