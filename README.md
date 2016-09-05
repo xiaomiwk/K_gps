@@ -23,6 +23,6 @@
 客户端示例
 ![image](image/11.jpg)
 ![image](image/12.png)
-![image](image/13.jpg)
-![image](image/14.jpg)
+![image](image/13.png)
+![image](image/14.png)
 ![image](image/15.png)
