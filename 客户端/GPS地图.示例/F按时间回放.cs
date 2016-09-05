@@ -17,7 +17,9 @@ namespace GPS地图.示例
 {
     public partial class F按时间回放 : UserControl
     {
-        private F显示模板 _F显示;
+        F显示模板 _F显示;
+
+        F回放_按时间 _F回放;
 
         public F按时间回放()
         {
@@ -33,6 +35,14 @@ namespace GPS地图.示例
             this.in结束时间.Value = DateTime.Now.Date.AddDays(1);
             this.in号码范围.KeyDown += in号码范围_KeyDown;
             this.do查询.Click += do查询_Click;
+            this.in显示轨迹.Enabled = false;
+            this.in显示轨迹.Checked = true;
+            this.in显示轨迹.CheckedChanged += In显示轨迹_CheckedChanged;
+        }
+
+        private void In显示轨迹_CheckedChanged(object sender, EventArgs e)
+        {
+            _F回放.IV地图.显隐静态轨迹();
         }
 
         void in号码范围_KeyDown(object sender, KeyEventArgs e)
@@ -93,14 +103,15 @@ namespace GPS地图.示例
                 _F显示.Dispose();
             }
 
-            var __F回放 = new F回放_按时间(__回放) { Dock = DockStyle.Fill };
-            __F回放.SizeChanged += (sender1, e1) => __等待窗口.隐藏();
+            _F回放 = new F回放_按时间(__回放) { Dock = DockStyle.Fill };
+            _F回放.SizeChanged += (sender1, e1) => __等待窗口.隐藏();
 
-            _F显示 = new F显示模板 { Dock = DockStyle.Fill, 显示统计 = false, 控件 = __F回放, 显示GPS = __F回放.显示GPS, 数据交互 = __F回放.接收GPS };
+            _F显示 = new F显示模板 { Dock = DockStyle.Fill, 显示统计 = false, 控件 = _F回放, 显示GPS = _F回放.显示GPS, 数据交互 = _F回放.接收GPS };
             this.out显示号码.Controls.Clear();
             this.out显示号码.Controls.Add(_F显示);
 
             _F显示.设置号码(__参数);
+            this.in显示轨迹.Enabled = true;
         }
     }
 }

@@ -47,7 +47,7 @@ namespace GPS地图.示例
             }
         }
 
-        public void 设置号码(List<int> __列表)
+        public void 设置号码(List<int> __列表, List<int> __组号列表 = null)
         {
             if (_订阅缓存 != null && _订阅缓存.Count > 0)
             {
@@ -56,7 +56,7 @@ namespace GPS地图.示例
 
             var __参数 = new Dictionary<string, M图标显示参数>();
             __列表.ForEach(q => __参数[q.ToString()] = new M图标显示参数 { 名称 = q.ToString(), 名称一直显示 = true});
-            base.设置号码(__参数);
+            base.设置号码(__参数, __组号列表);
 
             _订阅缓存 = H序列化.单值列表转段列表(__列表).Select(q => new M号码段 {起始 = q.Item1, 结束 = q.Item2}).ToList();
             if (_订阅缓存.Count > 0)

@@ -67,10 +67,14 @@ namespace GPS
             }
         }
 
-        private void 处理GPS上报(Dictionary<string,string> __实参列表)
+        private void 处理GPS上报(Dictionary<string, string> __实参列表)
         {
             var __号码 = int.Parse(__实参列表["号码"]);
             var __GPS = HJSON.反序列化<MGPS>(__实参列表["GPS"]);
+            if (__GPS.时间 > DateTime.Now)
+            {
+                __GPS.时间 = DateTime.Now;
+            }
             OnGps上报(__号码, __GPS);
         }
 
@@ -125,13 +129,13 @@ namespace GPS
                             var __纬度 = __轨迹缓存[__号码].Item2 + __随机数.NextDouble() * 0.0005 * (__随机数.NextDouble() > 0.2 ? -1 : 1);
                             __轨迹缓存[__号码] = new Tuple<double, double>(__经度, __纬度);
                             On位置更新(__号码, new MGPS
-                                {
-                                    时间 = DateTime.Now,
-                                    精度 = 20,
-                                    方向 = 60,
-                                    经度 = __经度,
-                                    纬度 = __纬度, 
-                                }
+                            {
+                                时间 = DateTime.Now,
+                                精度 = 20,
+                                方向 = 60,
+                                经度 = __经度,
+                                纬度 = __纬度,
+                            }
                             );
                             //Thread.Sleep(__随机数.Next(0, __更新频率 / __数量));
                         }

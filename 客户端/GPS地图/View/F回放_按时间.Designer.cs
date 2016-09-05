@@ -92,7 +92,7 @@ namespace GPS地图.View
             // 
             // do停止
             // 
-            this.do停止.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(140)))), ((int)(((byte)(170)))));
+            this.do停止.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(164)))), ((int)(((byte)(221)))));
             this.do停止.FlatAppearance.BorderSize = 0;
             this.do停止.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.do停止.Font = new System.Drawing.Font("微软雅黑", 9F);
@@ -106,7 +106,7 @@ namespace GPS地图.View
             // 
             // do播放
             // 
-            this.do播放.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(140)))), ((int)(((byte)(170)))));
+            this.do播放.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(164)))), ((int)(((byte)(221)))));
             this.do播放.FlatAppearance.BorderSize = 0;
             this.do播放.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.do播放.ForeColor = System.Drawing.Color.White;

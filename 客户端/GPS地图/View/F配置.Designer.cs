@@ -35,18 +35,18 @@ namespace GPS地图.View
             this.do取消 = new System.Windows.Forms.Button();
             this.do确定 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.outGIS服务器 = new GPS地图.View.配置.F配置_服务器();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.outGPS时间参数 = new GPS地图.View.配置.F配置_GPS状态();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.out地图路径 = new GPS地图.View.配置.F配置_地图路径();
             this.labelX2 = new System.Windows.Forms.Label();
-            this.outGIS服务器 = new GPS地图.View.配置.F配置_服务器();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panelEx1.SuspendLayout();
             this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelEx1
@@ -65,13 +65,13 @@ namespace GPS地图.View
             // do取消
             // 
             this.do取消.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.do取消.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(140)))), ((int)(((byte)(170)))));
+            this.do取消.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(164)))), ((int)(((byte)(221)))));
             this.do取消.FlatAppearance.BorderSize = 0;
             this.do取消.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.do取消.ForeColor = System.Drawing.Color.White;
             this.do取消.Location = new System.Drawing.Point(420, 328);
             this.do取消.Name = "do取消";
-            this.do取消.Size = new System.Drawing.Size(90, 24);
+            this.do取消.Size = new System.Drawing.Size(90, 26);
             this.do取消.TabIndex = 22;
             this.do取消.Text = "取消";
             this.do取消.UseVisualStyleBackColor = false;
@@ -79,13 +79,13 @@ namespace GPS地图.View
             // do确定
             // 
             this.do确定.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.do确定.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(140)))), ((int)(((byte)(170)))));
+            this.do确定.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(164)))), ((int)(((byte)(221)))));
             this.do确定.FlatAppearance.BorderSize = 0;
             this.do确定.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.do确定.ForeColor = System.Drawing.Color.White;
             this.do确定.Location = new System.Drawing.Point(324, 328);
             this.do确定.Name = "do确定";
-            this.do确定.Size = new System.Drawing.Size(90, 24);
+            this.do确定.Size = new System.Drawing.Size(90, 26);
             this.do确定.TabIndex = 21;
             this.do确定.Text = "确定";
             this.do确定.UseVisualStyleBackColor = false;
@@ -106,6 +106,28 @@ namespace GPS地图.View
             this.tabControl1.Size = new System.Drawing.Size(502, 305);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 20;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.outGIS服务器);
+            this.tabPage1.Location = new System.Drawing.Point(4, 32);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(494, 269);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "GIS服务器";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // outGIS服务器
+            // 
+            this.outGIS服务器.BackColor = System.Drawing.Color.White;
+            this.outGIS服务器.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.outGIS服务器.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.outGIS服务器.Location = new System.Drawing.Point(3, 3);
+            this.outGIS服务器.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.outGIS服务器.Name = "outGIS服务器";
+            this.outGIS服务器.Size = new System.Drawing.Size(488, 263);
+            this.outGIS服务器.TabIndex = 1;
             // 
             // tabPage2
             // 
@@ -164,28 +186,6 @@ namespace GPS地图.View
             this.labelX2.TabIndex = 19;
             this.labelX2.Text = "提示: 修改参数后, 重启生效";
             // 
-            // outGIS服务器
-            // 
-            this.outGIS服务器.BackColor = System.Drawing.Color.White;
-            this.outGIS服务器.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.outGIS服务器.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.outGIS服务器.Location = new System.Drawing.Point(3, 3);
-            this.outGIS服务器.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.outGIS服务器.Name = "outGIS服务器";
-            this.outGIS服务器.Size = new System.Drawing.Size(488, 263);
-            this.outGIS服务器.TabIndex = 1;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.outGIS服务器);
-            this.tabPage1.Location = new System.Drawing.Point(4, 32);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(494, 269);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "GIS服务器";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
             // F配置
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -199,9 +199,9 @@ namespace GPS地图.View
             this.panelEx1.ResumeLayout(false);
             this.panelEx1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

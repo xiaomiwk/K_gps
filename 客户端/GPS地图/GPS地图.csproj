@@ -49,11 +49,13 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Utility">
-      <HintPath>..\..\LIB\Utility.dll</HintPath>
+    <Reference Include="Utility, Version=1.16.330.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\调试输出\Utility\Utility.dll</HintPath>
     </Reference>
-    <Reference Include="显示地图">
-      <HintPath>..\..\LIB\显示地图.dll</HintPath>
+    <Reference Include="显示地图, Version=1.15.430.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\调试输出\地图\显示地图.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

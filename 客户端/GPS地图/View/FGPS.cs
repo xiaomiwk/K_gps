@@ -28,6 +28,8 @@ namespace GPS地图.View
 
         private const int _轨迹点数上限 = 8 * 60 * 4; //小时, 分钟, 每分钟数量
 
+        private string _轨迹图层名称 = "静态轨迹";
+
         public FGPS()
         {
             H接口注册.设置();
@@ -156,6 +158,10 @@ namespace GPS地图.View
 
         public void 添加静态轨迹(List<M静态轨迹> __轨迹集)
         {
+            if (!地图.存在图层(_轨迹图层名称))
+            {
+                地图.添加图层(_轨迹图层名称);
+            }
             //抽稀
             long __轨迹点数总数 = 0;
             foreach (var __kv in __轨迹集)
@@ -186,15 +192,31 @@ namespace GPS地图.View
                 k.GPS.ForEach(__图标 =>
                 {
                     var __名称 = string.Format("名称: {0}{5}时间: {1}{5}误差: {2}米{5}经度: {3}{5}纬度: {4}{5}", k.名称, __图标.时间, __图标.精度, __图标.经度, __图标.纬度, Environment.NewLine);
-                    地图.添加点(__图标.转M经纬度(), __轨迹点图标, __名称);
+                    地图.添加点(__图标.转M经纬度(), __轨迹点图标, __名称, null, _轨迹图层名称);
 
                 });
                 var __开始点 = k.GPS.First();
                 var __结束点 = k.GPS.Last();
-                地图.添加点(new M经纬度(__开始点.经度, __开始点.纬度), __开始图标, k.名称, null, null, __轨迹集.Count > 1 ? E标题显示方式.Always : E标题显示方式.OnMouseOver);
-                地图.添加点(new M经纬度(__结束点.经度, __结束点.纬度), __结束图标, k.名称, null, null, __轨迹集.Count > 1 ? E标题显示方式.Always : E标题显示方式.OnMouseOver);
-                地图.添加线(k.GPS.Select(q => new M经纬度(q.经度, q.纬度)).ToList(), 2, k.显示颜色);
+                地图.添加点(new M经纬度(__开始点.经度, __开始点.纬度), __开始图标, k.名称, null, _轨迹图层名称, __轨迹集.Count > 1 ? E标题显示方式.Always : E标题显示方式.OnMouseOver);
+                地图.添加点(new M经纬度(__结束点.经度, __结束点.纬度), __结束图标, k.名称, null, _轨迹图层名称, __轨迹集.Count > 1 ? E标题显示方式.Always : E标题显示方式.OnMouseOver);
+                地图.添加线(k.GPS.Select(q => new M经纬度(q.经度, q.纬度)).ToList(), 2, k.显示颜色, null, _轨迹图层名称);
             });
+        }
+
+        public void 显隐静态轨迹()
+        {
+            if (!地图.存在图层(_轨迹图层名称))
+            {
+                return;
+            }
+            if (地图.查询显隐(_轨迹图层名称))
+            {
+                地图.隐藏图层(_轨迹图层名称);
+            }
+            else
+            {
+                地图.显示图层(_轨迹图层名称);
+            }
         }
 
         public void 定位(List<ulong> __图标集)

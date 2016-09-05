@@ -28,15 +28,15 @@ namespace GIS服务器
                 ServiceBase.Run(ServicesToRun);
                 return;
             }
-            //if (System.Diagnostics.Debugger.IsAttached)
-            //{
-            //    var __B控制器 = new B控制器();
-            //    __B控制器.配置();
-            //    __B控制器.开启();
-            //    Application.Run(new F对话框_确定("程序处于调试模式, 按确定键关闭", "GIS服务器 - 调试模式 " + H调试.查询版本()));
-            //    __B控制器.关闭();
-            //    return;
-            //}
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                var __B控制器 = new B控制器();
+                __B控制器.配置();
+                __B控制器.开启();
+                Application.Run(new F对话框_确定("程序处于调试模式, 按确定键关闭", "GIS服务器 - 调试模式 " + H调试.查询版本()));
+                __B控制器.关闭();
+                return;
+            }
             HUI线程.初始化();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

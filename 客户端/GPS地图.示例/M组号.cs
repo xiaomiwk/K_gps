@@ -1,29 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace GPS地图.示例
 {
-    public class M个号 : IComparable<M个号>
+    public class M组号 : IComparable<M组号>
     {
         public int 号码 { get; set; }
 
         public string 名称 { get; set; }
-
-        //public string 部门 { get; set; }
-
-        //public string 职务 { get; set; }
-
-        //public string 手机 { get; set; }
-
-        //public string 警种 { get; set; }
-
-        //public string 警号 { get; set; }
-
-        //public string 厂商 { get; set; }
-
-        //public string 型号 { get; set; }
-
-        //public string 备注 { get; set; }
 
         public Dictionary<string, string> 参数 { get; set; }
 
@@ -38,10 +24,10 @@ namespace GPS地图.示例
 
         public override bool Equals(object obj)
         {
-            var __个号 = obj as M个号;
-            if (__个号 != null)
+            var __组号 = obj as M组号;
+            if (__组号 != null)
             {
-                return 号码 == __个号.号码;
+                return 号码 == __组号.号码;
             }
             return false;
         }
@@ -51,7 +37,7 @@ namespace GPS地图.示例
             return 号码.GetHashCode();
         }
 
-        public int CompareTo(M个号 other)
+        public int CompareTo(M组号 other)
         {
             return this.号码.CompareTo(other.号码);
         }

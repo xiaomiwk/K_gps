@@ -32,6 +32,8 @@ namespace GPS
             _IT客户端.连接(__服务器地址);
         }
 
+        public static IT客户端 IT客户端 { get { return _IT客户端; } }
+
         public static void 断开()
         {
             _IT客户端.断开();

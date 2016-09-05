@@ -37,12 +37,16 @@
   <PropertyGroup>
     <ApplicationIcon>K.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="INET3">
-      <HintPath>..\..\LIB\INET3.dll</HintPath>
+    <Reference Include="INET">
+      <HintPath>..\..\..\调试输出\INET\INET.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\LIB\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\资源\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -55,14 +59,16 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Utility">
-      <HintPath>..\..\LIB\Utility.dll</HintPath>
+    <Reference Include="Utility, Version=1.16.330.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\调试输出\Utility\Utility.dll</HintPath>
     </Reference>
-    <Reference Include="通用命令">
-      <HintPath>..\..\LIB\通用命令.dll</HintPath>
+    <Reference Include="通用命令, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\调试输出\通用命令\通用命令.dll</HintPath>
     </Reference>
     <Reference Include="通用访问">
-      <HintPath>..\..\LIB\通用访问.dll</HintPath>
+      <HintPath>..\..\..\调试输出\通用访问\通用访问.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +176,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="app.manifest">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

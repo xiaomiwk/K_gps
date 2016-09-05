@@ -34,13 +34,17 @@
   <PropertyGroup>
     <ApplicationIcon>K.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="INET3">
-      <HintPath>..\..\LIB\INET3.dll</HintPath>
+    <Reference Include="INET">
+      <HintPath>..\..\..\调试输出\INET\INET.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\LIB\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\资源\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -59,19 +63,21 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Utility">
-      <HintPath>..\..\LIB\Utility.dll</HintPath>
+    <Reference Include="Utility, Version=1.16.330.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\调试输出\Utility\Utility.dll</HintPath>
     </Reference>
     <Reference Include="通用命令">
-      <HintPath>..\..\LIB\通用命令.dll</HintPath>
+      <HintPath>..\..\..\调试输出\通用命令\通用命令.dll</HintPath>
     </Reference>
-    <Reference Include="通用访问">
-      <HintPath>..\..\LIB\通用访问.dll</HintPath>
+    <Reference Include="通用访问, Version=1.15.616.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\调试输出\通用访问\通用访问.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="F主窗口.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="F主窗口.Designer.cs">
       <DependentUpon>F主窗口.cs</DependentUpon>
@@ -147,6 +153,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="App.config" />
+    <None Include="app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

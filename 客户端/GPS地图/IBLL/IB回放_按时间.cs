@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DTO;
 using GPS地图.DTO;
+using Utility.通用;
 
 namespace GPS地图.IBLL
 {

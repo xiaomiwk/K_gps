@@ -92,7 +92,7 @@ namespace GPS地图.View
             // 
             // do停止
             // 
-            this.do停止.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(140)))), ((int)(((byte)(170)))));
+            this.do停止.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(164)))), ((int)(((byte)(221)))));
             this.do停止.FlatAppearance.BorderSize = 0;
             this.do停止.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.do停止.Font = new System.Drawing.Font("微软雅黑", 9F);
@@ -106,7 +106,7 @@ namespace GPS地图.View
             // 
             // do播放
             // 
-            this.do播放.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(140)))), ((int)(((byte)(170)))));
+            this.do播放.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(164)))), ((int)(((byte)(221)))));
             this.do播放.FlatAppearance.BorderSize = 0;
             this.do播放.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.do播放.ForeColor = System.Drawing.Color.White;
@@ -141,7 +141,7 @@ namespace GPS地图.View
             this.out地图.Size = new System.Drawing.Size(1000, 645);
             this.out地图.TabIndex = 10;
             // 
-            // F回放
+            // F回放_按频率
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -149,7 +149,7 @@ namespace GPS地图.View
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Name = "F回放";
+            this.Name = "F回放_按频率";
             this.Size = new System.Drawing.Size(1000, 696);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

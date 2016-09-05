@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using DTO;
 using GPS地图.DTO;
+using Utility.通用;
 
 namespace GPS地图.IBLL.实现
 {

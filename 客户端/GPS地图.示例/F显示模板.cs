@@ -49,8 +49,8 @@ namespace GPS地图.示例
 
             this.in全选.CheckedChanged += in全选_CheckedChanged;
             this.timer1.Tick += timer1_Tick;
-            this.out号码列表.CellMouseClick += out号码列表_CellClick;
-            this.out号码列表.CellMouseDoubleClick += Out号码列表_CellMouseDoubleClick;
+            this.out个号列表.CellMouseClick += out个号列表_CellClick;
+            //this.out个号列表.CellMouseDoubleClick += Out个号列表_CellMouseDoubleClick;
 
             if (!DesignMode)
             {
@@ -67,28 +67,40 @@ namespace GPS地图.示例
             set { this.out统计面板.Visible = value; }
         }
 
-        public virtual void 设置号码(Dictionary<string, M图标显示参数> __列表)
+        public virtual void 设置号码(Dictionary<string, M图标显示参数> __个号列表, List<int> __组号列表 = null)
         {
-            _参数缓存 = __列表;
+            _参数缓存 = __个号列表;
             if (_状态缓存.Count > 0)
             {
                 显示GPS.隐藏(_状态缓存.Select(q => q.Key).ToList());
             }
-            this.out号码列表.Rows.Clear();
+            this.out个号列表.Rows.Clear();
             _状态缓存.Clear();
             _行缓存.Clear();
             _显示缓存.Clear();
-            foreach (var __kv in __列表)
+            foreach (var __kv in __个号列表)
             {
                 var __标识 = __kv.Key;
-                var __行号 = this.out号码列表.Rows.Add(true, __标识);
-                _行缓存[__标识] = this.out号码列表.Rows[__行号];
+                var __行号 = this.out个号列表.Rows.Add(__标识, true);
+                _行缓存[__标识] = this.out个号列表.Rows[__行号];
                 _状态缓存[__标识] = 数据交互.查询(__标识);
                 _显示缓存[__标识] = true;
             }
             显示GPS.更新图片 = 更新图片;
-            显示GPS.显示(__列表);
+            显示GPS.显示(__个号列表);
             this.in全选.Checked = true;
+
+            this.out组号列表.Rows.Clear();
+            if (__组号列表 != null && __组号列表.Count > 0)
+            {
+                __组号列表.ForEach(q => this.out组号列表.Rows.Add(q.ToString(), "呼叫"));
+                this.splitContainer2.Panel1Collapsed = false;
+                this.splitContainer2.SplitterDistance = Math.Min(this.out组号列表.ColumnHeadersHeight * (__组号列表.Count + 1), this.Height / 2);
+            }
+            else
+            {
+                this.splitContainer2.Panel1Collapsed = true;
+            }
         }
 
         protected virtual Image 更新图片(string __标识, EGPS状态 __状态)
@@ -114,13 +126,13 @@ namespace GPS地图.示例
             }
         }
 
-        void out号码列表_CellClick(object sender, DataGridViewCellMouseEventArgs e)
+        void out个号列表_CellClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.ColumnIndex > 0 || e.RowIndex < 0)
+            if (e.ColumnIndex == 0 || e.RowIndex < 0)
             {
                 return;
             }
-            var __标识 = this.out号码列表.Rows[e.RowIndex].Cells[1].Value.ToString();
+            var __标识 = this.out个号列表.Rows[e.RowIndex].Cells[0].Value.ToString();
             if (!_显示缓存[__标识])
             {
                 显示GPS.显示(new Dictionary<string, M图标显示参数> { { __标识, _参数缓存[__标识] } });
@@ -130,23 +142,36 @@ namespace GPS地图.示例
                 显示GPS.隐藏(new List<string> { __标识 });
             }
             _显示缓存[__标识] = !_显示缓存[__标识];
-
         }
 
-        private void Out号码列表_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void Out个号列表_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.ColumnIndex == 0 || e.RowIndex < 0)
+            if (e.ColumnIndex != 0 || e.RowIndex < 0)
             {
                 return;
             }
-            var __标识 = this.out号码列表.Rows[e.RowIndex].Cells[1].Value.ToString();
+            var __标识 = this.out个号列表.Rows[e.RowIndex].Cells[0].Value.ToString();
             if (!_显示缓存[__标识])
             {
                 显示GPS.显示(new Dictionary<string, M图标显示参数> { { __标识, _参数缓存[__标识] } });
                 _显示缓存[__标识] = true;
-                this.out号码列表.Rows[e.RowIndex].Cells[0].Value = true;
+                this.out个号列表.Rows[e.RowIndex].Cells[1].Value = true;
             }
             显示GPS.定位(new List<string> { __标识 });
+        }
+
+        public void 定位个号(List<string> __标识列表)
+        {
+            __标识列表.ForEach(__标识 =>
+            {
+                if (!_显示缓存[__标识])
+                {
+                    显示GPS.显示(new Dictionary<string, M图标显示参数> { { __标识, _参数缓存[__标识] } });
+                    _显示缓存[__标识] = true;
+                    _行缓存[__标识].Cells[1].Value = true;
+                }
+            });
+            显示GPS.定位(__标识列表);
         }
 
         void 数据交互_状态更新(string __标识, EGPS状态 __状态)
@@ -168,7 +193,8 @@ namespace GPS地图.示例
                 {
                     if (!_显示缓存[__kv.Key])
                     {
-                        __参数[__kv.Key] = new M图标显示参数 { 名称 = __kv.Key, 图片 = 更新图片(__kv.Key, __kv.Value) };
+                        //__参数[__kv.Key] = new M图标显示参数 { 名称 = __kv.Key, 图片 = 更新图片(__kv.Key, __kv.Value) };
+                        __参数[__kv.Key] = _参数缓存[__kv.Key];
                     }
                 }
                 显示GPS.显示(__参数);
@@ -179,7 +205,7 @@ namespace GPS地图.示例
             }
             foreach (var __kv in _行缓存)
             {
-                __kv.Value.Cells[0].Value = __显示;
+                __kv.Value.Cells[1].Value = __显示;
             }
             var __镜像 = new Dictionary<string, bool>(_显示缓存);
             foreach (var __kv in __镜像)

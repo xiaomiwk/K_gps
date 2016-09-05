@@ -43,7 +43,7 @@ namespace GPS地图.IBLL.实现
                 __结果[__文件路径] = false;
             }
 
-            var __复制对象 = H复制对象.深复制(__结果);
+            var __复制对象 = __结果.DeepClone();
             foreach (var xElement in _根节点.Elements("已选择路径"))
             {
                 var __已选择文件 = xElement.Value;

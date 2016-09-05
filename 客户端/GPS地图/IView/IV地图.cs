@@ -26,6 +26,8 @@ namespace GPS地图.IView
 
         void 添加静态轨迹(List<M静态轨迹> 轨迹集);
 
+        void 显隐静态轨迹();
+
         List<M图标> 查询所有图标();
     }
 }

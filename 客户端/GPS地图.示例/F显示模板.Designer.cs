@@ -31,7 +31,7 @@ namespace GPS地图.示例
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.in全选 = new System.Windows.Forms.CheckBox();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.out地图容器 = new System.Windows.Forms.Panel();
             this.do折叠 = new Utility.WindowsForm.U按钮();
             this.out统计面板 = new System.Windows.Forms.Panel();
@@ -50,26 +50,27 @@ namespace GPS地图.示例
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.out号码列表 = new Utility.WindowsForm.DataGridViewK();
-            this.Column2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.out组号列表 = new Utility.WindowsForm.DataGridViewK();
+            this.in全选 = new System.Windows.Forms.CheckBox();
+            this.out个号列表 = new Utility.WindowsForm.DataGridViewK();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.out地图容器.SuspendLayout();
             this.out统计面板.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.out号码列表)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.out组号列表)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.out个号列表)).BeginInit();
             this.SuspendLayout();
-            // 
-            // in全选
-            // 
-            this.in全选.AutoSize = true;
-            this.in全选.Location = new System.Drawing.Point(11, 4);
-            this.in全选.Name = "in全选";
-            this.in全选.Size = new System.Drawing.Size(15, 14);
-            this.in全选.TabIndex = 47;
-            this.in全选.UseVisualStyleBackColor = true;
             // 
             // out地图容器
             // 
@@ -242,8 +243,7 @@ namespace GPS地图.示例
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.in全选);
-            this.splitContainer1.Panel1.Controls.Add(this.out号码列表);
+            this.splitContainer1.Panel1.Controls.Add(this.splitContainer2);
             // 
             // splitContainer1.Panel2
             // 
@@ -252,38 +252,115 @@ namespace GPS地图.示例
             this.splitContainer1.SplitterDistance = 170;
             this.splitContainer1.TabIndex = 49;
             // 
-            // out号码列表
+            // splitContainer2
             // 
-            this.out号码列表.AllowUserToAddRows = false;
-            this.out号码列表.AllowUserToDeleteRows = false;
-            this.out号码列表.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            this.out号码列表.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.out号码列表.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.out号码列表.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.out号码列表.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column2,
-            this.dataGridViewTextBoxColumn1});
-            this.out号码列表.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.out号码列表.GridColor = System.Drawing.SystemColors.ControlLight;
-            this.out号码列表.Location = new System.Drawing.Point(0, 0);
-            this.out号码列表.Name = "out号码列表";
-            this.out号码列表.RowHeadersVisible = false;
-            this.out号码列表.RowTemplate.Height = 23;
-            this.out号码列表.Size = new System.Drawing.Size(170, 710);
-            this.out号码列表.TabIndex = 44;
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // Column2
+            // splitContainer2.Panel1
             // 
-            this.Column2.HeaderText = "      选择";
-            this.Column2.Name = "Column2";
-            this.Column2.Width = 70;
+            this.splitContainer2.Panel1.Controls.Add(this.out组号列表);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.in全选);
+            this.splitContainer2.Panel2.Controls.Add(this.out个号列表);
+            this.splitContainer2.Size = new System.Drawing.Size(170, 710);
+            this.splitContainer2.SplitterDistance = 243;
+            this.splitContainer2.TabIndex = 0;
+            // 
+            // out组号列表
+            // 
+            this.out组号列表.AllowUserToAddRows = false;
+            this.out组号列表.AllowUserToDeleteRows = false;
+            this.out组号列表.AllowUserToResizeColumns = false;
+            this.out组号列表.AllowUserToResizeRows = false;
+            this.out组号列表.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.out组号列表.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.out组号列表.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.out组号列表.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.out组号列表.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn2,
+            this.Column1});
+            this.out组号列表.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.out组号列表.GridColor = System.Drawing.SystemColors.ControlLight;
+            this.out组号列表.Location = new System.Drawing.Point(0, 0);
+            this.out组号列表.Name = "out组号列表";
+            this.out组号列表.ReadOnly = true;
+            this.out组号列表.RowHeadersVisible = false;
+            this.out组号列表.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.out组号列表.RowTemplate.Height = 23;
+            this.out组号列表.Size = new System.Drawing.Size(170, 243);
+            this.out组号列表.TabIndex = 49;
+            // 
+            // in全选
+            // 
+            this.in全选.AutoSize = true;
+            this.in全选.BackColor = System.Drawing.Color.White;
+            this.in全选.Location = new System.Drawing.Point(93, 1);
+            this.in全选.Name = "in全选";
+            this.in全选.Size = new System.Drawing.Size(51, 21);
+            this.in全选.TabIndex = 49;
+            this.in全选.Text = "显示";
+            this.in全选.UseVisualStyleBackColor = false;
+            // 
+            // out个号列表
+            // 
+            this.out个号列表.AllowUserToAddRows = false;
+            this.out个号列表.AllowUserToDeleteRows = false;
+            this.out个号列表.AllowUserToResizeColumns = false;
+            this.out个号列表.AllowUserToResizeRows = false;
+            this.out个号列表.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.out个号列表.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.out个号列表.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.out个号列表.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.out个号列表.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.Column2});
+            this.out个号列表.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.out个号列表.GridColor = System.Drawing.SystemColors.ControlLight;
+            this.out个号列表.Location = new System.Drawing.Point(0, 0);
+            this.out个号列表.Name = "out个号列表";
+            this.out个号列表.RowHeadersVisible = false;
+            this.out个号列表.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.out个号列表.RowTemplate.Height = 23;
+            this.out个号列表.Size = new System.Drawing.Size(170, 463);
+            this.out个号列表.TabIndex = 48;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "组号";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 80;
+            // 
+            // Column1
+            // 
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(164)))), ((int)(((byte)(221)))));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
+            this.Column1.DefaultCellStyle = dataGridViewCellStyle4;
+            this.Column1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Column1.HeaderText = "呼叫";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 70;
             // 
             // dataGridViewTextBoxColumn1
             // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "号码";
+            this.dataGridViewTextBoxColumn1.HeaderText = "个号";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
             this.dataGridViewTextBoxColumn1.Width = 80;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "";
+            this.Column2.Name = "Column2";
+            this.Column2.Width = 70;
             // 
             // F显示模板
             // 
@@ -298,23 +375,23 @@ namespace GPS地图.示例
             this.out统计面板.ResumeLayout(false);
             this.out统计面板.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.out号码列表)).EndInit();
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            this.splitContainer2.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.out组号列表)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.out个号列表)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private DataGridViewK out号码列表;
-        private System.Windows.Forms.CheckBox in全选;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.Panel out统计面板;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label out从未有过;
@@ -331,5 +408,13 @@ namespace GPS地图.示例
         private System.Windows.Forms.SplitContainer splitContainer1;
         private U按钮 do折叠;
         internal System.Windows.Forms.Panel out地图容器;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        public DataGridViewK out组号列表;
+        private System.Windows.Forms.CheckBox in全选;
+        public DataGridViewK out个号列表;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewButtonColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Column2;
     }
 }

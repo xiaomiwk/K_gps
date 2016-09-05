@@ -38,6 +38,7 @@ namespace GPS地图.示例
             this.label2 = new System.Windows.Forms.Label();
             this.in开始时间 = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
+            this.in显示轨迹 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label9
@@ -69,7 +70,7 @@ namespace GPS地图.示例
             this.do查询.FlatAppearance.BorderSize = 0;
             this.do查询.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.do查询.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.do查询.Location = new System.Drawing.Point(897, 1);
+            this.do查询.Location = new System.Drawing.Point(809, 2);
             this.do查询.Name = "do查询";
             this.do查询.Size = new System.Drawing.Size(100, 26);
             this.do查询.TabIndex = 36;
@@ -94,7 +95,7 @@ namespace GPS地图.示例
             this.in结束时间.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.in结束时间.CustomFormat = "yyyy-MM-dd HH:mm";
             this.in结束时间.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.in结束时间.Location = new System.Drawing.Point(742, 3);
+            this.in结束时间.Location = new System.Drawing.Point(654, 4);
             this.in结束时间.Name = "in结束时间";
             this.in结束时间.Size = new System.Drawing.Size(140, 23);
             this.in结束时间.TabIndex = 58;
@@ -103,18 +104,18 @@ namespace GPS地图.示例
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(680, 6);
+            this.label2.Location = new System.Drawing.Point(635, 6);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 17);
+            this.label2.Size = new System.Drawing.Size(13, 17);
             this.label2.TabIndex = 57;
-            this.label2.Text = "结束时间";
+            this.label2.Text = "-";
             // 
             // in开始时间
             // 
             this.in开始时间.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.in开始时间.CustomFormat = "yyyy-MM-dd HH:mm";
             this.in开始时间.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.in开始时间.Location = new System.Drawing.Point(516, 3);
+            this.in开始时间.Location = new System.Drawing.Point(489, 3);
             this.in开始时间.Name = "in开始时间";
             this.in开始时间.Size = new System.Drawing.Size(140, 23);
             this.in开始时间.TabIndex = 56;
@@ -123,17 +124,29 @@ namespace GPS地图.示例
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(454, 6);
+            this.label1.Location = new System.Drawing.Point(451, 6);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 17);
+            this.label1.Size = new System.Drawing.Size(32, 17);
             this.label1.TabIndex = 55;
-            this.label1.Text = "开始时间";
+            this.label1.Text = "时间";
+            // 
+            // in显示轨迹
+            // 
+            this.in显示轨迹.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.in显示轨迹.AutoSize = true;
+            this.in显示轨迹.Location = new System.Drawing.Point(921, 7);
+            this.in显示轨迹.Name = "in显示轨迹";
+            this.in显示轨迹.Size = new System.Drawing.Size(75, 21);
+            this.in显示轨迹.TabIndex = 59;
+            this.in显示轨迹.Text = "显示轨迹";
+            this.in显示轨迹.UseVisualStyleBackColor = true;
             // 
             // F按时间回放
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoScroll = true;
             this.AutoScrollMinSize = new System.Drawing.Size(730, 0);
+            this.Controls.Add(this.in显示轨迹);
             this.Controls.Add(this.in结束时间);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.in开始时间);
@@ -160,5 +173,6 @@ namespace GPS地图.示例
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker in开始时间;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox in显示轨迹;
     }
 }

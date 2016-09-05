@@ -21,7 +21,7 @@ namespace 管理工具
     {
         private List<M访问记录> _访问记录;
 
-        private F主窗口 _F主窗口;
+        private F空窗口 _F主窗口;
 
         private IT客户端 _IT客户端;
 
@@ -109,12 +109,14 @@ namespace 管理工具
             });
             _IT客户端 = FT通用访问工厂.创建客户端();
             H容器.注入<IT客户端>(_IT客户端, false);
+            _IT客户端.自动重连 = true;
             _IT客户端.已断开 += q => 设置连接状态();
             _IT客户端.已连接 += 设置连接状态;
             _IT客户端.连接(new IPEndPoint(IPAddress.Parse(__ip), int.Parse(__port)));
             this.ParentForm.ShowInTaskbar = false;
             this.ParentForm.Visible = false;
-            _F主窗口 = new F主窗口();
+            _F主窗口 = new F空窗口(new F主窗口(),"");
+            设置连接状态();
             _F主窗口.FormClosing += OnClosing;
             _F主窗口.ShowDialog();
         }
@@ -128,7 +130,7 @@ namespace 管理工具
             }
             if (_F主窗口 != null)
             {
-                _F主窗口.标题 = "GIS服务器管理工具 " + H调试.查询版本() + (_IT客户端.连接正常 ? "" : " | 已断开");
+                _F主窗口.标题 = "GIS服务器管理工具 " + H调试.查询版本() + (_IT客户端.连接正常 ? "" : " | 断开");
             }
         }
 

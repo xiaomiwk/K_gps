@@ -106,7 +106,7 @@ namespace GPS地图.示例
 
         private string 获取标题()
         {
-            return "地图应用示例 " + H调试.查询版本() + (BGPS应用.连接正常 ? "" : " | 已断开");
+            return "地图 " + H调试.查询版本() + (BGPS应用.连接正常 ? "" : " | 已断开");
         }
 
         void OnClosing(object sender, CancelEventArgs e)
