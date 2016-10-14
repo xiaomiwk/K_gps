@@ -10,13 +10,13 @@ using DTO;
 using DTO.订阅;
 using Utility.WindowsForm;
 
-namespace 管理工具
+namespace GPS地图.示例.数据分析
 {
-    public partial class F订阅_详细 : UserControlK
+    public partial class F查询活跃号码 : UserControlK
     {
         private List<string> _列表;
 
-        public F订阅_详细(List<string> __列表)
+        public F查询活跃号码(List<string> __列表)
         {
             _列表 = __列表;
             InitializeComponent();
@@ -30,6 +30,7 @@ namespace 管理工具
             {
                 this.out号码列表.Rows.Add(_列表[i]);
             }
+
         }
     }
 }

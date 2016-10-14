@@ -13,6 +13,7 @@ namespace GPS地图.IBLL
         /// </summary>
         /// <param name="回放参数"></param>
         /// <returns>键为昵称</returns>
+        [NoLogArguments]
         void 初始化(List<MGPS> 回放参数);
 
         DateTime 实际开始时间 { get;}
@@ -43,5 +44,7 @@ namespace GPS地图.IBLL
         /// </summary>
         event Action<MGPS> 位置更新;
 
+        [NoLog]
+        void 跳转进度(int __进度);
     }
 }

@@ -13,5 +13,7 @@ namespace DTO.插件
 
         public bool 有管理界面 { get; set; }
 
+        public string 目录 { get; set; }
+
     }
 }

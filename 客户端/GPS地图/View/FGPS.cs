@@ -30,6 +30,8 @@ namespace GPS地图.View
 
         private string _轨迹图层名称 = "静态轨迹";
 
+        private string _图标层名称 = "图标层";
+
         public FGPS()
         {
             H接口注册.设置();
@@ -44,6 +46,8 @@ namespace GPS地图.View
 
             if (!DesignMode)
             {
+                地图.添加图层(_轨迹图层名称);
+                地图.添加图层(_图标层名称);
                 this.地图.单击点 += (m, n) => On单击图标((M图标)m, n);
                 this.地图.进入点 += m => On进入图标((M图标)m);
                 this.地图.离开点 += m => On离开图标((M图标)m);
@@ -104,7 +108,7 @@ namespace GPS地图.View
             __图标集.ForEach(__图标 =>
             {
                 var __经纬度 = __图标.位置.转M经纬度();
-                var __点标识 = 地图.添加点(__图标.位置.转M经纬度(), __图标.显示参数.图片, __图标.显示参数.名称, __图标, null, __图标.显示参数.名称一直显示 ? E标题显示方式.Always : E标题显示方式.OnMouseOver);
+                var __点标识 = 地图.添加点(__图标.位置.转M经纬度(), __图标.显示参数.图片, __图标.显示参数.名称, __图标, _图标层名称, __图标.显示参数.名称一直显示 ? E标题显示方式.Always : E标题显示方式.OnMouseOver);
                 UInt64? __线标识 = null;
                 if (__图标.显示参数.显示轨迹数 > 0 && __图标.轨迹 != null && __图标.轨迹.Count > 0)
                 {
@@ -113,7 +117,7 @@ namespace GPS地图.View
                     {
                         var __点数量 = Math.Min(__轨迹缓存.Count, __图标.显示参数.显示轨迹数);
                         __轨迹缓存.Insert(0, __经纬度);
-                        __线标识 = 地图.添加线(__轨迹缓存.GetRange(__轨迹缓存.Count - __点数量, __点数量), 2, Color.Yellow);
+                        __线标识 = 地图.添加线(__轨迹缓存.GetRange(__轨迹缓存.Count - __点数量, __点数量), 2, Color.Yellow, null, _图标层名称);
                     }
                 }
                 _图标缓存[__点标识] = new Tuple<M图标, UInt64?>(__图标, __线标识);
@@ -128,10 +132,10 @@ namespace GPS地图.View
             {
                 if (_图标缓存.ContainsKey(q))
                 {
-                    地图.删除点(q);
+                    地图.删除点(q, _图标层名称);
                     if (_图标缓存[q].Item2.HasValue)
                     {
-                        地图.删除线(_图标缓存[q].Item2.Value);
+                        地图.删除线(_图标缓存[q].Item2.Value, _图标层名称);
                     }
                     _图标缓存.Remove(q);
                 }
@@ -142,10 +146,10 @@ namespace GPS地图.View
         {
             foreach (var __kv in _图标缓存)
             {
-                地图.删除点(__kv.Key);
+                地图.删除点(__kv.Key, _图标层名称);
                 if (_图标缓存[__kv.Key].Item2.HasValue)
                 {
-                    地图.删除线(_图标缓存[__kv.Key].Item2.Value);
+                    地图.删除线(_图标缓存[__kv.Key].Item2.Value, _图标层名称);
                 }
             }
             _图标缓存.Clear();
@@ -158,10 +162,6 @@ namespace GPS地图.View
 
         public void 添加静态轨迹(List<M静态轨迹> __轨迹集)
         {
-            if (!地图.存在图层(_轨迹图层名称))
-            {
-                地图.添加图层(_轨迹图层名称);
-            }
             //抽稀
             long __轨迹点数总数 = 0;
             foreach (var __kv in __轨迹集)
@@ -205,10 +205,10 @@ namespace GPS地图.View
 
         public void 显隐静态轨迹()
         {
-            if (!地图.存在图层(_轨迹图层名称))
-            {
-                return;
-            }
+            //if (!地图.存在图层(_轨迹图层名称))
+            //{
+            //    return;
+            //}
             if (地图.查询显隐(_轨迹图层名称))
             {
                 地图.隐藏图层(_轨迹图层名称);

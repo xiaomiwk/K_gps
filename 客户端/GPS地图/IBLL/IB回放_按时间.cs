@@ -8,6 +8,7 @@ namespace GPS地图.IBLL
 {
     public interface IB回放_按时间
     {
+        [NoLogArguments]
         void 初始化(Dictionary<string, List<MGPS>> 回放参数);
 
         DateTime 实际开始时间 { get; }
@@ -38,5 +39,7 @@ namespace GPS地图.IBLL
         /// </summary>
         event Action<string, MGPS> 位置更新;
 
+        [NoLog]
+        void 跳转进度(int __进度);
     }
 }

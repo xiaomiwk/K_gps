@@ -49,9 +49,8 @@ namespace GPS地图.示例
 
             this.in全选.CheckedChanged += in全选_CheckedChanged;
             this.timer1.Tick += timer1_Tick;
-            this.out个号列表.CellMouseClick += out个号列表_CellClick;
-            //this.out个号列表.CellMouseDoubleClick += Out个号列表_CellMouseDoubleClick;
-
+            this.out个号列表.CurrentCellDirtyStateChanged += Out个号列表_CurrentCellDirtyStateChanged;
+            this.out个号列表.CellValueChanged += Out个号列表_CellValueChanged;
             if (!DesignMode)
             {
                 数据交互.状态更新 += 数据交互_状态更新;
@@ -61,15 +60,42 @@ namespace GPS地图.示例
             this.do折叠.Click += (sender1, e1) => this.splitContainer1.Panel1Collapsed = !this.splitContainer1.Panel1Collapsed;
         }
 
+        private void Out个号列表_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0 || e.RowIndex < 0)
+            {
+                return;
+            }
+            var __标识 = (((DataGridView)sender).Rows[e.RowIndex].Tag as M个号).号码.ToString();
+            var __显示 = (bool)((DataGridView)sender).Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+            if (__显示)
+            {
+                显示GPS.显示(new Dictionary<string, M图标显示参数> { { __标识, _参数缓存[__标识] } });
+            }
+            else
+            {
+                显示GPS.隐藏(new List<string> { __标识 });
+            }
+            _显示缓存[__标识] = __显示;
+        }
+
+        private void Out个号列表_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (this.out个号列表.IsCurrentCellDirty)
+            {
+                this.out个号列表.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
+        }
+
         public bool 显示统计
         {
             get { return this.out统计面板.Visible; }
             set { this.out统计面板.Visible = value; }
         }
 
-        public virtual void 设置号码(Dictionary<string, M图标显示参数> __个号列表, List<int> __组号列表 = null)
+        public virtual void 设置号码(Dictionary<M个号, M图标显示参数> __个号列表, List<M组号> __组号列表 = null)
         {
-            _参数缓存 = __个号列表;
+            _参数缓存 = __个号列表.ToDictionary(q => q.Key.号码.ToString(), q => q.Value);
             if (_状态缓存.Count > 0)
             {
                 显示GPS.隐藏(_状态缓存.Select(q => q.Key).ToList());
@@ -80,20 +106,25 @@ namespace GPS地图.示例
             _显示缓存.Clear();
             foreach (var __kv in __个号列表)
             {
-                var __标识 = __kv.Key;
-                var __行号 = this.out个号列表.Rows.Add(__标识, true);
+                var __标识 = __kv.Key.号码.ToString();
+                var __行号 = this.out个号列表.Rows.Add(string.Format("{0} {1}", __标识, __kv.Key.名称), true);
                 _行缓存[__标识] = this.out个号列表.Rows[__行号];
+                _行缓存[__标识].Tag = __kv.Key;
                 _状态缓存[__标识] = 数据交互.查询(__标识);
                 _显示缓存[__标识] = true;
             }
             显示GPS.更新图片 = 更新图片;
-            显示GPS.显示(__个号列表);
+            显示GPS.显示(_参数缓存);
             this.in全选.Checked = true;
 
             this.out组号列表.Rows.Clear();
             if (__组号列表 != null && __组号列表.Count > 0)
             {
-                __组号列表.ForEach(q => this.out组号列表.Rows.Add(q.ToString(), "呼叫"));
+                __组号列表.ForEach(q =>
+                {
+                    var __行号 = this.out组号列表.Rows.Add(string.Format("{0} {1}", q.号码, q.名称), "呼叫");
+                    this.out组号列表.Rows[__行号].Tag = q;
+                });
                 this.splitContainer2.Panel1Collapsed = false;
                 this.splitContainer2.SplitterDistance = Math.Min(this.out组号列表.ColumnHeadersHeight * (__组号列表.Count + 1), this.Height / 2);
             }
@@ -124,54 +155,6 @@ namespace GPS地图.示例
                 var __状态 = _状态缓存[__标识];
                 设置表格颜色(_行缓存[__标识], __状态);
             }
-        }
-
-        void out个号列表_CellClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (e.ColumnIndex == 0 || e.RowIndex < 0)
-            {
-                return;
-            }
-            var __标识 = this.out个号列表.Rows[e.RowIndex].Cells[0].Value.ToString();
-            if (!_显示缓存[__标识])
-            {
-                显示GPS.显示(new Dictionary<string, M图标显示参数> { { __标识, _参数缓存[__标识] } });
-            }
-            else
-            {
-                显示GPS.隐藏(new List<string> { __标识 });
-            }
-            _显示缓存[__标识] = !_显示缓存[__标识];
-        }
-
-        private void Out个号列表_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (e.ColumnIndex != 0 || e.RowIndex < 0)
-            {
-                return;
-            }
-            var __标识 = this.out个号列表.Rows[e.RowIndex].Cells[0].Value.ToString();
-            if (!_显示缓存[__标识])
-            {
-                显示GPS.显示(new Dictionary<string, M图标显示参数> { { __标识, _参数缓存[__标识] } });
-                _显示缓存[__标识] = true;
-                this.out个号列表.Rows[e.RowIndex].Cells[1].Value = true;
-            }
-            显示GPS.定位(new List<string> { __标识 });
-        }
-
-        public void 定位个号(List<string> __标识列表)
-        {
-            __标识列表.ForEach(__标识 =>
-            {
-                if (!_显示缓存[__标识])
-                {
-                    显示GPS.显示(new Dictionary<string, M图标显示参数> { { __标识, _参数缓存[__标识] } });
-                    _显示缓存[__标识] = true;
-                    _行缓存[__标识].Cells[1].Value = true;
-                }
-            });
-            显示GPS.定位(__标识列表);
         }
 
         void 数据交互_状态更新(string __标识, EGPS状态 __状态)

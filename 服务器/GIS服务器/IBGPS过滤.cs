@@ -14,7 +14,7 @@ namespace GIS服务器
 {
     public interface IBGPS过滤
     {
-        bool 判断合法(int __号码, MGPS __GPS);
+        bool 判断合法(string __号码, MGPS __GPS);
     }
 
     internal class BGPS过滤 : IBGPS过滤
@@ -65,7 +65,7 @@ namespace GIS服务器
             _IT服务端.添加对象(__对象名称, () => __对象);
         }
 
-        public bool 判断合法(int __号码, MGPS __GPS)
+        public bool 判断合法(string __号码, MGPS __GPS)
         {
             if (!_MGPS过滤.启用)
             {

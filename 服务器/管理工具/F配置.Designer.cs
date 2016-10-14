@@ -43,10 +43,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.out互联插件 = new Utility.WindowsForm.DataGridViewK();
-            this.Column3 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.label13 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.in数据源 = new System.Windows.Forms.TextBox();
@@ -57,6 +53,11 @@
             this.label4 = new System.Windows.Forms.Label();
             this.do检测连接 = new Utility.WindowsForm.U按钮();
             this.do刷新 = new Utility.WindowsForm.U按钮();
+            this.Column3 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.out互联插件)).BeginInit();
             this.SuspendLayout();
             // 
@@ -204,6 +205,7 @@
             this.out互联插件.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column3,
             this.Column1,
+            this.Column5,
             this.Column2,
             this.Column4});
             this.out互联插件.GridColor = System.Drawing.SystemColors.ControlLight;
@@ -213,36 +215,6 @@
             this.out互联插件.RowTemplate.Height = 23;
             this.out互联插件.Size = new System.Drawing.Size(855, 153);
             this.out互联插件.TabIndex = 24;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "启用";
-            this.Column3.Name = "Column3";
-            this.Column3.Width = 60;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "名称";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 220;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "描述";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Width = 450;
-            // 
-            // Column4
-            // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(164)))), ((int)(((byte)(221)))));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
-            this.Column4.DefaultCellStyle = dataGridViewCellStyle1;
-            this.Column4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Column4.HeaderText = "";
-            this.Column4.Name = "Column4";
             // 
             // label13
             // 
@@ -345,6 +317,42 @@
             this.do刷新.文字颜色 = System.Drawing.Color.WhiteSmoke;
             this.do刷新.颜色 = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(164)))), ((int)(((byte)(221)))));
             // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "启用";
+            this.Column3.Name = "Column3";
+            this.Column3.Width = 60;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "名称";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 220;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "目录名";
+            this.Column5.Name = "Column5";
+            this.Column5.Width = 150;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "描述";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 300;
+            // 
+            // Column4
+            // 
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(164)))), ((int)(((byte)(221)))));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            this.Column4.DefaultCellStyle = dataGridViewCellStyle1;
+            this.Column4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Column4.HeaderText = "";
+            this.Column4.Name = "Column4";
+            // 
             // F配置
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -409,6 +417,7 @@
         private Utility.WindowsForm.U按钮 do刷新;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewButtonColumn Column4;
     }

@@ -26,6 +26,8 @@ namespace GPS.IBLL.实现
 
         List<MGPS> _GPS数据列表 = new List<MGPS>();
 
+        int _刻度 = 100;
+
         public void 初始化(List<MGPS> __GPS数据)
         {
             _当前播放状态 = E播放状态.初始化;
@@ -34,7 +36,7 @@ namespace GPS.IBLL.实现
             //查询GPS数据
             实际开始时间 = __GPS数据.First().时间;
             实际结束时间 = __GPS数据.Last().时间;
-            _GPS数据列表 = new List<MGPS>(__GPS数据); 
+            _GPS数据列表 = new List<MGPS>(__GPS数据);
         }
 
         public DateTime 实际开始时间 { get; set; }
@@ -48,7 +50,7 @@ namespace GPS.IBLL.实现
 
         public void 播放(int __频率)
         {
-            _定时器间隔 = 1000/__频率;
+            _定时器间隔 = 1000 / __频率;
             if (_当前播放状态 == E播放状态.初始化 || _当前播放状态 == E播放状态.停止)
             {
                 _回放标识++;
@@ -83,9 +85,9 @@ namespace GPS.IBLL.实现
 
             _当前播放时间 = __匹配GPS.时间;
             On当前时间变化(_当前播放时间);
-            const int __刻度 = 100;
-            var __进度 = ((int)(_当前播放时间.Subtract(实际开始时间).TotalSeconds) * __刻度 / (int)(实际结束时间.Subtract(实际开始时间).TotalSeconds));
-            On播放进度变化(Math.Min(__刻度, __进度));
+            //var __进度 = ((int)(_当前播放时间.Subtract(实际开始时间).TotalSeconds) * _刻度 / (int)(实际结束时间.Subtract(实际开始时间).TotalSeconds));
+            var __进度 = (int)(_播放索引 * _刻度 / _GPS数据列表.Count);
+            On播放进度变化(Math.Min(_刻度, __进度));
         }
 
         public void 暂停()
@@ -96,6 +98,10 @@ namespace GPS.IBLL.实现
 
         public void 停止()
         {
+            if (_GPS数据列表.Count > 0)
+            {
+                On位置更新(_GPS数据列表[_GPS数据列表.Count - 1]);
+            }
             _当前播放状态 = E播放状态.停止;
             On播放状态变化(_当前播放状态);
             On播放进度变化(100);
@@ -109,6 +115,14 @@ namespace GPS.IBLL.实现
             if (_当前播放状态 == E播放状态.播放)
             {
                 _播放定时器.Change(0, _定时器间隔);
+            }
+        }
+
+        public void 跳转进度(int __进度)
+        {
+            if (_GPS数据列表.Count > 0)
+            {
+                _播放索引 = _GPS数据列表.Count * __进度 / _刻度;
             }
         }
 

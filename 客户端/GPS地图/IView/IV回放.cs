@@ -35,6 +35,6 @@ namespace GPS地图.IView
 
         void 显示实际时间(DateTime 开始时间, DateTime 结束时间);
 
-
+        event Action<int> 跳转进度;
     }
 }

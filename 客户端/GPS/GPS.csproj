@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="INET, Version=1.16.330.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\调试输出\INET\INET.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\资源\Newtonsoft.Json.dll</HintPath>
@@ -50,8 +54,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BGPS应用.cs" />
-    <Compile Include="IB轨迹.cs" />
+    <Compile Include="B入口.cs" />
+    <Compile Include="IB数据.cs" />
     <Compile Include="IB订阅.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

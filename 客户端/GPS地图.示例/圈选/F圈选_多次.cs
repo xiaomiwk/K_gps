@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Utility.WindowsForm;
 using 显示地图;
 
 namespace GPS地图.示例.圈选
@@ -83,7 +84,7 @@ namespace GPS地图.示例.圈选
                 case E圈选方式.矩形:
                     if (_鼠标点击位置列表.Count != 2)
                     {
-                        MessageBox.Show("请使用鼠标右键绘图");
+                        new F对话框_确定("请使用鼠标右键绘图").ShowDialog();
                         return;
                     }
                     var __矩形起点 = _I地图.屏幕坐标转经纬度(_鼠标点击位置列表[0]);
@@ -93,7 +94,7 @@ namespace GPS地图.示例.圈选
                 case E圈选方式.圆形:
                     if (_鼠标点击位置列表.Count != 2)
                     {
-                        MessageBox.Show("请使用鼠标右键绘图");
+                        new F对话框_确定("请使用鼠标右键绘图").ShowDialog();
                         return;
                     }
                     var __圆形起点 = _I地图.屏幕坐标转经纬度(_鼠标点击位置列表[0]);
@@ -105,7 +106,7 @@ namespace GPS地图.示例.圈选
                 case E圈选方式.多边形:
                     if (_鼠标点击位置列表.Count < 4)
                     {
-                        MessageBox.Show("请使用鼠标右键绘图");
+                        new F对话框_确定("请使用鼠标右键绘图").ShowDialog();
                         return;
                     }
                     var __顶点列表 = _鼠标点击位置列表.Select(q => _I地图.屏幕坐标转经纬度(q)).ToList();

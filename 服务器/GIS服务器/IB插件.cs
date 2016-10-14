@@ -24,7 +24,7 @@ namespace GIS服务器
 
         void 关闭();
 
-        event Action<int, MGPS> GPS上报;
+        event Action<string, MGPS> GPS上报;
 
         //List<M插件参数> 查询();
     }
@@ -58,12 +58,14 @@ namespace GIS服务器
             配置通用访问("插件");
 
             H日志.记录提示("开始加载插件");
+            var __插件配置 = HJSON.反序列化<List<M插件配置>>(H程序配置.获取字符串("插件配置"));
+            Action<string, string> __记录日志 = (__插件名称, __内容) => _IB日志.增加(new DTO.日志.M日志 { 描述 = __内容, 时间 = DateTime.Now, 类别 = __插件名称 });
             var __输入插件 = new List<IPluginGPS输入>();
             var __输出插件 = new List<IPluginGPS输出>();
             for (int i = 0; i < __子目录.Length; i++)
             {
-                var __目录名 = new DirectoryInfo(__子目录[i]).Name;
-                var __入口路径 = Path.Combine(__子目录[i], __目录名 + ".dll");
+                var __目录 = new DirectoryInfo(__子目录[i]).Name;
+                var __入口路径 = Path.Combine(__子目录[i], __目录 + ".dll");
                 if (!File.Exists(__入口路径))
                 {
                     continue;
@@ -72,48 +74,42 @@ namespace GIS服务器
                 if (__输入实例 != null)
                 {
                     __输入插件.Add(__输入实例);
+                    var __启用 = 查询启用(__插件配置, __目录);
+                    _所有插件.Add(new M插件参数
+                    {
+                        描述 = __输入实例.接口描述,
+                        名称 = __输入实例.接口名称,
+                        启用 = __启用,
+                        有管理界面 = __输入实例.有管理界面,
+                        目录 = __目录
+                    });
+                    if (__启用)
+                    {
+                        _输入插件列表.Add(__输入实例);
+                    }
+                    __输入实例.记录日志 = __内容 => __记录日志(__输入实例.接口名称, __内容);
                 }
                 var __输出实例 = H反射.获取实例<IPluginGPS输出>(__入口路径);
                 if (__输出实例 != null)
                 {
                     __输出插件.Add(__输出实例);
+                    var __启用 = 查询启用(__插件配置, __目录);
+                    _所有插件.Add(new M插件参数
+                    {
+                        描述 = __输出实例.接口描述,
+                        名称 = __输出实例.接口名称,
+                        启用 = __启用,
+                        有管理界面 = __输出实例.有管理界面,
+                        目录 = __目录
+                    });
+                    if (__启用)
+                    {
+                        _输出插件列表.Add(__输出实例);
+                    }
+                    __输出实例.记录日志 = __内容 => __记录日志(__输出实例.接口名称, __内容);
                 }
             }
 
-            var __插件配置 = HJSON.反序列化<List<M插件配置>>(H程序配置.获取字符串("插件配置"));
-            Action<string, string> __记录日志 = (__插件名称, __内容) => _IB日志.增加(new DTO.日志.M日志 { 描述 = __内容, 时间 = DateTime.Now, 类别 = __插件名称 });
-            __输入插件.ForEach(q =>
-            {
-                var __启用 = 查询启用(__插件配置, q.接口名称);
-                _所有插件.Add(new M插件参数
-                {
-                    描述 = q.接口描述,
-                    名称 = q.接口名称,
-                    启用 = __启用,
-                    有管理界面 = q.有管理界面,
-                });
-                if (__启用)
-                {
-                    _输入插件列表.Add(q);
-                }
-                q.记录日志 = __内容 => __记录日志(q.接口名称, __内容);
-            });
-            __输出插件.ForEach(q =>
-            {
-                var __启用 = 查询启用(__插件配置, q.接口名称);
-                _所有插件.Add(new M插件参数
-                {
-                    描述 = q.接口描述,
-                    名称 = q.接口名称,
-                    启用 = __启用,
-                    有管理界面 = q.有管理界面,
-                });
-                if (__启用)
-                {
-                    _输出插件列表.Add(q);
-                }
-                q.记录日志 = __内容 => __记录日志(q.接口名称, __内容);
-            });
             H日志.记录提示("插件状态", H序列化.ToJSON字符串(_所有插件));
 
             _输入插件列表.ForEach(__插件 =>
@@ -160,7 +156,7 @@ namespace GIS服务器
                 return null;
             }, E角色.工程, new List<M形参> { new M形参("配置", new M元数据{ 结构 = E数据结构.对象数组, 子成员列表 = new List<M子成员>
             {
-                new M子成员("插件名称","string"),new M子成员("启用","bool")
+                new M子成员("目录","string"),new M子成员("启用","bool")
             }}) });
             H容器.取出<IT服务端>().添加对象(__对象名称, () => __对象);
         }
@@ -210,7 +206,7 @@ namespace GIS服务器
         {
             __配置.ForEach(q =>
             {
-                var __匹配 = _所有插件.Find(k => k.名称 == q.名称);
+                var __匹配 = _所有插件.Find(k => k.目录 == q.目录);
                 if (__匹配 != null)
                 {
                     __匹配.启用 = q.启用;
@@ -219,9 +215,9 @@ namespace GIS服务器
             H程序配置.设置("插件配置", HJSON.序列化(__配置, false).Replace('"', '\''));
         }
 
-        public bool 查询启用(List<M插件配置> __配置, string __插件名称)
+        public bool 查询启用(List<M插件配置> __配置, string __目录名称)
         {
-            var __匹配 = __配置.Find(q => q.名称 == __插件名称);
+            var __匹配 = __配置.Find(q => q.目录 == __目录名称);
             if (__匹配 == null)
             {
                 return false;
@@ -229,9 +225,9 @@ namespace GIS服务器
             return __匹配.启用;
         }
 
-        public event Action<int, MGPS> GPS上报;
+        public event Action<string, MGPS> GPS上报;
 
-        protected virtual void OnGps上报(int arg1, MGPS arg2)
+        protected virtual void OnGps上报(string arg1, MGPS arg2)
         {
             var handler = GPS上报;
             if (handler != null) handler(arg1, arg2);

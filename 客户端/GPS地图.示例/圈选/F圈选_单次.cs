@@ -200,6 +200,10 @@ namespace GPS地图.示例.圈选
 
         private void 绘制矩形(MouseEventArgs e)
         {
+            if (_鼠标点击位置列表.Count == 0)
+            {
+                return;
+            }
             var __起点 = _I地图.屏幕坐标转经纬度(_鼠标点击位置列表[0]);
             var __终点 = _I地图.屏幕坐标转经纬度(e.Location);
             _I地图.删除矩形(_圈选图形索引);
@@ -208,6 +212,10 @@ namespace GPS地图.示例.圈选
 
         private void 绘制圆形(MouseEventArgs e)
         {
+            if (_鼠标点击位置列表.Count == 0)
+            {
+                return;
+            }
             var __起点 = _I地图.屏幕坐标转经纬度(_鼠标点击位置列表[0]);
             var __终点 = _I地图.屏幕坐标转经纬度(e.Location);
             _I地图.删除圆(_圈选图形索引);
@@ -243,6 +251,10 @@ namespace GPS地图.示例.圈选
                 case E圈选方式.无:
                     break;
                 case E圈选方式.矩形:
+                    if (_鼠标点击位置列表.Count == 0)
+                    {
+                        return;
+                    }
                     var __矩形起点 = _I地图.屏幕坐标转经纬度(_鼠标点击位置列表[0]);
                     var __矩形终点 = _I地图.屏幕坐标转经纬度(e.Location);
                     if (自动删除圈选)
@@ -254,6 +266,10 @@ namespace GPS地图.示例.圈选
                     _鼠标点击位置列表.Clear();
                     break;
                 case E圈选方式.圆形:
+                    if (_鼠标点击位置列表.Count == 0)
+                    {
+                        return;
+                    }
                     var __圆形起点 = _I地图.屏幕坐标转经纬度(_鼠标点击位置列表[0]);
                     var __圆形终点 = _I地图.屏幕坐标转经纬度(e.Location);
                     if (自动删除圈选)

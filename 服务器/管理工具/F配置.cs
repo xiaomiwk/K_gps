@@ -79,7 +79,7 @@ namespace 管理工具
             var __插件列表 = HJSON.反序列化<List<M插件参数>>(_IT客户端.查询属性值("插件", "配置"));
             __插件列表.ForEach(q =>
             {
-                var __行 = this.out互联插件.Rows.Add(q.启用, q.名称, q.描述, q.有管理界面 ? "管理" : "");
+                var __行 = this.out互联插件.Rows.Add(q.启用, q.名称, q.目录, q.描述, q.有管理界面 ? "管理" : "");
                 this.out互联插件.Rows[__行].Tag = q;
             });
 
@@ -108,7 +108,7 @@ namespace 管理工具
             {
                 __插件配置.Add(new M插件配置
                 {
-                    名称 = this.out互联插件.Rows[i].Cells[1].Value.ToString(),
+                    目录 = this.out互联插件.Rows[i].Cells[1].Value.ToString(),
                     启用 = (bool)this.out互联插件.Rows[i].Cells[0].Value
                 });
             }

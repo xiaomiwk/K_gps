@@ -67,7 +67,7 @@ namespace GPS地图.View
                 this.BeginInvoke(new Action<string, string>(显示成功), 概要内容, 详细内容);
                 return;
             }
-            MessageBox.Show(概要内容, "操作成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            new F对话框_确定(概要内容, "操作成功").ShowDialog();
         }
 
         public virtual void 显示失败(string 概要内容, string 详细内容 = null)
@@ -77,7 +77,7 @@ namespace GPS地图.View
                 this.BeginInvoke(new Action<string, string>(显示失败), 概要内容, 详细内容);
                 return;
             }
-            MessageBox.Show(概要内容, "操作失败", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            new F对话框_确定(概要内容, "操作失败").ShowDialog(); ;
         }
 
         public void UI线程执行(Action 方法)

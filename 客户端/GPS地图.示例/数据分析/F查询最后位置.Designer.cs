@@ -1,6 +1,6 @@
-﻿namespace 管理工具
+﻿namespace GPS地图.示例.数据分析
 {
-    partial class F订阅_详细
+    partial class F查询最后位置
     {
         /// <summary> 
         /// 必需的设计器变量。
@@ -30,6 +30,9 @@
         {
             this.out号码列表 = new Utility.WindowsForm.DataGridViewK();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.out总数 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.out号码列表)).BeginInit();
             this.SuspendLayout();
@@ -46,14 +49,17 @@
             this.out号码列表.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.out号码列表.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.out号码列表.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1});
+            this.dataGridViewTextBoxColumn1,
+            this.Column1,
+            this.Column2,
+            this.Column3});
             this.out号码列表.GridColor = System.Drawing.SystemColors.ControlLight;
             this.out号码列表.Location = new System.Drawing.Point(3, 3);
             this.out号码列表.Name = "out号码列表";
             this.out号码列表.ReadOnly = true;
             this.out号码列表.RowHeadersVisible = false;
             this.out号码列表.RowTemplate.Height = 23;
-            this.out号码列表.Size = new System.Drawing.Size(218, 488);
+            this.out号码列表.Size = new System.Drawing.Size(597, 485);
             this.out号码列表.TabIndex = 41;
             // 
             // dataGridViewTextBoxColumn1
@@ -61,7 +67,28 @@
             this.dataGridViewTextBoxColumn1.HeaderText = "号码";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 200;
+            this.dataGridViewTextBoxColumn1.Width = 120;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "经度";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 150;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "纬度";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 150;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "时间";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 150;
             // 
             // out总数
             // 
@@ -70,18 +97,18 @@
             this.out总数.Location = new System.Drawing.Point(3, 497);
             this.out总数.Name = "out总数";
             this.out总数.Size = new System.Drawing.Size(43, 17);
-            this.out总数.TabIndex = 44;
+            this.out总数.TabIndex = 43;
             this.out总数.Text = "label1";
             // 
-            // F订阅_详细
+            // F查询最后位置
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.out总数);
             this.Controls.Add(this.out号码列表);
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Name = "F订阅_详细";
-            this.Size = new System.Drawing.Size(224, 514);
+            this.Name = "F查询最后位置";
+            this.Size = new System.Drawing.Size(603, 514);
             ((System.ComponentModel.ISupportInitialize)(this.out号码列表)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -92,6 +119,9 @@
 
         private Utility.WindowsForm.DataGridViewK out号码列表;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.Label out总数;
     }
 }

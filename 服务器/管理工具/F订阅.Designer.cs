@@ -30,7 +30,7 @@ namespace 管理工具
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.out客户端列表 = new Utility.WindowsForm.DataGridViewK();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,7 +43,6 @@ namespace 管理工具
             this.do查询 = new Utility.WindowsForm.U按钮();
             this.out号码列表 = new Utility.WindowsForm.DataGridViewK();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.out客户端列表)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.out号码列表)).BeginInit();
             this.SuspendLayout();
@@ -104,10 +103,10 @@ namespace 管理工具
             // 
             // Column3
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(164)))), ((int)(((byte)(221)))));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            this.Column3.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(164)))), ((int)(((byte)(221)))));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            this.Column3.DefaultCellStyle = dataGridViewCellStyle1;
             this.Column3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Column3.HeaderText = "";
             this.Column3.Name = "Column3";
@@ -168,8 +167,7 @@ namespace 管理工具
             this.out号码列表.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.out号码列表.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.out号码列表.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2});
+            this.dataGridViewTextBoxColumn1});
             this.out号码列表.GridColor = System.Drawing.SystemColors.ControlLight;
             this.out号码列表.Location = new System.Drawing.Point(594, 54);
             this.out号码列表.Name = "out号码列表";
@@ -181,15 +179,10 @@ namespace 管理工具
             // 
             // dataGridViewTextBoxColumn1
             // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "起始号码";
+            this.dataGridViewTextBoxColumn1.HeaderText = "号码";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "终止号码";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 200;
             // 
             // F订阅
             // 
@@ -225,6 +218,5 @@ namespace 管理工具
         private System.Windows.Forms.DataGridViewButtonColumn Column3;
         private DataGridViewK out号码列表;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
     }
 }

@@ -38,6 +38,15 @@ namespace GPS地图.示例
                 this.inIP.SelectedIndex = 0;
             }
             this.ParentForm.FormClosing += OnClosing;
+
+            var __参数 = Environment.GetCommandLineArgs();
+            if (__参数.Length >= 3)
+            {
+                this.inIP2.Text = __参数[1];
+                this.in端口号.Text = __参数[2];
+                this.do连接.PerformClick();
+            }
+
         }
 
         void inIP_SelectedIndexChanged(object sender, EventArgs e)
@@ -77,9 +86,9 @@ namespace GPS地图.示例
             }
             _访问记录.Insert(0, __最后访问);
             H程序配置.设置("访问记录", H序列化.ToJSON字符串(_访问记录));
-            BGPS应用.已断开 += q => 设置连接状态();
-            BGPS应用.已连接 += 设置连接状态;
-            BGPS应用.连接(new IPEndPoint(IPAddress.Parse(__ip), int.Parse(__port)), true);
+            B入口.已断开 += q => 设置连接状态();
+            B入口.已连接 += 设置连接状态;
+            B入口.连接(new IPEndPoint(IPAddress.Parse(__ip), int.Parse(__port)), true);
             this.ParentForm.ShowInTaskbar = false;
             this.ParentForm.Visible = false;
             _窗口 = new F空窗口(new F主窗口(), 获取标题())
@@ -106,14 +115,14 @@ namespace GPS地图.示例
 
         private string 获取标题()
         {
-            return "地图 " + H调试.查询版本() + (BGPS应用.连接正常 ? "" : " | 已断开");
+            return "地图 " + H调试.查询版本() + (B入口.连接正常 ? "" : " | 已断开");
         }
 
         void OnClosing(object sender, CancelEventArgs e)
         {
-            if (BGPS应用.连接正常)
+            if (B入口.连接正常)
             {
-                BGPS应用.断开();
+                B入口.断开();
             }
         }
 

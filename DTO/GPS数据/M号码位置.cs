@@ -7,7 +7,8 @@ namespace DTO.GPS数据
 {
     public class M号码位置
     {
-        public int 号码 { get; set; }
+        public string 号码 { get; set; }
+
         public MGPS GPS { get; set; }
     }
 }

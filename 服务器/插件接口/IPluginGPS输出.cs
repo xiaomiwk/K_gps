@@ -18,7 +18,9 @@ namespace 插件接口
 
         string 接口描述 { get; }
 
-        void 接收GPS(int 号码, MGPS gps);
+        void 接收GPS(string 号码, MGPS gps);
+
+        void 接收状态(string 号码, string 状态, string 描述);
 
         bool 有管理界面 { get; }
 

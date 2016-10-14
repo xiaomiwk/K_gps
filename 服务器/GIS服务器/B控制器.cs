@@ -16,9 +16,10 @@ namespace GIS服务器
 
         public void 配置()
         {
+            var __调试编解码 = H程序配置.获取Bool值("调试编解码");
             H日志输出.设置(q =>
             {
-                if (q.等级 < TraceEventType.Information)
+                if (q.等级 < TraceEventType.Information || __调试编解码)
                 {
                     if (q.异常 != null)
                     {
@@ -29,7 +30,7 @@ namespace GIS服务器
                         H日志.记录(q.概要, q.等级, q.详细, q.方法, q.文件, q.行号);
                     }
                 }
-            });
+            }, TraceEventType.Verbose);
             _IT服务端 = FT通用访问工厂.创建服务端();
             _IT服务端.端口 = H程序配置.获取Int32值("端口号");
             H容器.注入(_IT服务端, false);

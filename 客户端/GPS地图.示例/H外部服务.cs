@@ -74,7 +74,7 @@ namespace GPS地图.示例
         {
             try
             {
-                BGPS应用.IT客户端.执行方法("NEOTRO.MNIS", "立刻上报", new Dictionary<string, string> { { "号码范围", __号码 }, { "类型", "有计划信道"} });
+                B入口.IT客户端.执行方法("NEOTRO.MNIS", "立刻上报", new Dictionary<string, string> { { "号码范围", __号码 }, { "类型", "有计划信道"} });
             }
             catch (Exception ex)
             {

@@ -7,16 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using DTO;
-using DTO.订阅;
 using Utility.WindowsForm;
+using DTO.GPS数据;
 
-namespace 管理工具
+namespace GPS地图.示例.数据分析
 {
-    public partial class F订阅_详细 : UserControlK
+    public partial class F查询最后位置 : UserControlK
     {
-        private List<string> _列表;
+        private List<M号码位置> _列表;
 
-        public F订阅_详细(List<string> __列表)
+        public F查询最后位置(List<M号码位置> __列表)
         {
             _列表 = __列表;
             InitializeComponent();
@@ -26,9 +26,9 @@ namespace 管理工具
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            for (int i = 0; i < _列表.Count; i++)
+            foreach (var __kv in _列表)
             {
-                this.out号码列表.Rows.Add(_列表[i]);
+                this.out号码列表.Rows.Add(__kv.号码, __kv.GPS.经度, __kv.GPS.纬度, __kv.GPS.时间);
             }
         }
     }

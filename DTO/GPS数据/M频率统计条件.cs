@@ -5,16 +5,13 @@ using System.Text;
 
 namespace DTO.GPS数据
 {
-    public class M轨迹查询条件
+    public class M频率统计条件
     {
-        public string 号码 { get; set; }
-
         public DateTime 开始时间 { get; set; }
 
         public DateTime 结束时间 { get; set; }
 
-        public int? 页码 { get; set; }
+        public List<string> 号码列表 { get; set; }
 
-        public int? 每页数量 { get; set; }
     }
 }

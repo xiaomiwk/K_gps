@@ -30,28 +30,28 @@ namespace GPS地图.View.配置
         /// </summary>
         private void InitializeComponent()
         {
-            this.in无信号间隔 = new System.Windows.Forms.TextBox();
+            this.in短期未更新间隔 = new System.Windows.Forms.TextBox();
             this.labelX3 = new System.Windows.Forms.Label();
-            this.in关机间隔 = new System.Windows.Forms.TextBox();
+            this.in很久未更新间隔 = new System.Windows.Forms.TextBox();
             this.labelX5 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.out短期未更新间隔 = new System.Windows.Forms.PictureBox();
+            this.out很久未更新间隔 = new System.Windows.Forms.PictureBox();
             this.labelX1 = new System.Windows.Forms.Label();
             this.labelX4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.in停止显示间隔 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.out短期未更新间隔)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.out很久未更新间隔)).BeginInit();
             this.SuspendLayout();
             // 
-            // in无信号间隔
+            // in短期未更新间隔
             // 
-            this.in无信号间隔.Location = new System.Drawing.Point(135, 32);
-            this.in无信号间隔.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.in无信号间隔.Name = "in无信号间隔";
-            this.in无信号间隔.Size = new System.Drawing.Size(55, 23);
-            this.in无信号间隔.TabIndex = 25;
+            this.in短期未更新间隔.Location = new System.Drawing.Point(135, 32);
+            this.in短期未更新间隔.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.in短期未更新间隔.Name = "in短期未更新间隔";
+            this.in短期未更新间隔.Size = new System.Drawing.Size(55, 23);
+            this.in短期未更新间隔.TabIndex = 25;
             // 
             // labelX3
             // 
@@ -63,13 +63,13 @@ namespace GPS地图.View.配置
             this.labelX3.TabIndex = 24;
             this.labelX3.Text = "短期未更新间隔:";
             // 
-            // in关机间隔
+            // in很久未更新间隔
             // 
-            this.in关机间隔.Location = new System.Drawing.Point(135, 76);
-            this.in关机间隔.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.in关机间隔.Name = "in关机间隔";
-            this.in关机间隔.Size = new System.Drawing.Size(55, 23);
-            this.in关机间隔.TabIndex = 28;
+            this.in很久未更新间隔.Location = new System.Drawing.Point(135, 76);
+            this.in很久未更新间隔.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.in很久未更新间隔.Name = "in很久未更新间隔";
+            this.in很久未更新间隔.Size = new System.Drawing.Size(55, 23);
+            this.in很久未更新间隔.TabIndex = 28;
             // 
             // labelX5
             // 
@@ -81,23 +81,25 @@ namespace GPS地图.View.配置
             this.labelX5.TabIndex = 27;
             this.labelX5.Text = "长期未更新间隔:";
             // 
-            // pictureBox1
+            // out短期未更新间隔
             // 
-            this.pictureBox1.Image = global::GPS地图.Properties.Resources.短期未更新;
-            this.pictureBox1.Location = new System.Drawing.Point(236, 30);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(32, 30);
-            this.pictureBox1.TabIndex = 30;
-            this.pictureBox1.TabStop = false;
+            this.out短期未更新间隔.Image = global::GPS地图.Properties.Resources.短期未更新;
+            this.out短期未更新间隔.Location = new System.Drawing.Point(236, 30);
+            this.out短期未更新间隔.Name = "out短期未更新间隔";
+            this.out短期未更新间隔.Size = new System.Drawing.Size(32, 30);
+            this.out短期未更新间隔.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.out短期未更新间隔.TabIndex = 30;
+            this.out短期未更新间隔.TabStop = false;
             // 
-            // pictureBox2
+            // out很久未更新间隔
             // 
-            this.pictureBox2.Image = global::GPS地图.Properties.Resources.很久未更新;
-            this.pictureBox2.Location = new System.Drawing.Point(236, 76);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(32, 30);
-            this.pictureBox2.TabIndex = 31;
-            this.pictureBox2.TabStop = false;
+            this.out很久未更新间隔.Image = global::GPS地图.Properties.Resources.很久未更新;
+            this.out很久未更新间隔.Location = new System.Drawing.Point(236, 76);
+            this.out很久未更新间隔.Name = "out很久未更新间隔";
+            this.out很久未更新间隔.Size = new System.Drawing.Size(32, 30);
+            this.out很久未更新间隔.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.out很久未更新间隔.TabIndex = 31;
+            this.out很久未更新间隔.TabStop = false;
             // 
             // labelX1
             // 
@@ -147,7 +149,7 @@ namespace GPS地图.View.配置
             this.label2.TabIndex = 35;
             this.label2.Text = "停止显示间隔:";
             // 
-            // F配置_GPS更新状态
+            // F配置_GPS状态
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
@@ -156,18 +158,18 @@ namespace GPS地图.View.配置
             this.Controls.Add(this.label2);
             this.Controls.Add(this.labelX4);
             this.Controls.Add(this.labelX1);
-            this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.in关机间隔);
+            this.Controls.Add(this.out很久未更新间隔);
+            this.Controls.Add(this.out短期未更新间隔);
+            this.Controls.Add(this.in很久未更新间隔);
             this.Controls.Add(this.labelX5);
-            this.Controls.Add(this.in无信号间隔);
+            this.Controls.Add(this.in短期未更新间隔);
             this.Controls.Add(this.labelX3);
             this.Font = new System.Drawing.Font("微软雅黑", 9F);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Name = "FGPS更新状态";
+            this.Name = "F配置_GPS状态";
             this.Size = new System.Drawing.Size(473, 291);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.out短期未更新间隔)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.out很久未更新间隔)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -175,12 +177,12 @@ namespace GPS地图.View.配置
 
         #endregion
 
-        private TextBox in无信号间隔;
+        private TextBox in短期未更新间隔;
         public Label labelX3;
-        private TextBox in关机间隔;
+        private TextBox in很久未更新间隔;
         public Label labelX5;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox out短期未更新间隔;
+        private System.Windows.Forms.PictureBox out很久未更新间隔;
         public Label labelX1;
         public Label labelX4;
         public Label label1;

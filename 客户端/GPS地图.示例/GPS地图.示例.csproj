@@ -35,7 +35,6 @@
     <ApplicationIcon>K.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -117,12 +116,6 @@
     <Compile Include="F按时间回放.Designer.cs">
       <DependentUpon>F按时间回放.cs</DependentUpon>
     </Compile>
-    <Compile Include="F实时显示_号码段.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="F实时显示_号码段.Designer.cs">
-      <DependentUpon>F实时显示_号码段.cs</DependentUpon>
-    </Compile>
     <Compile Include="F实时显示_号码本.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -134,6 +127,18 @@
     </Compile>
     <Compile Include="F登录.Designer.cs">
       <DependentUpon>F登录.cs</DependentUpon>
+    </Compile>
+    <Compile Include="数据分析\F查询活跃号码.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="数据分析\F查询活跃号码.Designer.cs">
+      <DependentUpon>F查询活跃号码.cs</DependentUpon>
+    </Compile>
+    <Compile Include="数据分析\F查询最后位置.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="数据分析\F查询最后位置.Designer.cs">
+      <DependentUpon>F查询最后位置.cs</DependentUpon>
     </Compile>
     <Compile Include="H外部服务.cs" />
     <Compile Include="M个号.cs" />
@@ -183,14 +188,17 @@
     <EmbeddedResource Include="F显示模板.resx">
       <DependentUpon>F显示模板.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="F实时显示_号码段.resx">
-      <DependentUpon>F实时显示_号码段.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="F实时显示_号码本.resx">
       <DependentUpon>F实时显示_号码本.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="F登录.resx">
       <DependentUpon>F登录.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="数据分析\F查询活跃号码.resx">
+      <DependentUpon>F查询活跃号码.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="数据分析\F查询最后位置.resx">
+      <DependentUpon>F查询最后位置.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -220,6 +228,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\DTO\DTO.csproj">
+      <Project>{5a8fb4fd-aab7-4384-90f6-3d58eb7030f5}</Project>
+      <Name>DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GPS\GPS.csproj">
       <Project>{5cc6b037-95fe-4140-934e-fbf419c9c057}</Project>
       <Name>GPS</Name>

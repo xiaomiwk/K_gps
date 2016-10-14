@@ -18,7 +18,15 @@ namespace 插件接口
 
         string 接口描述 { get; }
 
-        event Action<int, MGPS> GPS上报;
+        /// <summary>
+        /// string 号码, MGPS 位置
+        /// </summary>
+        event Action<string, MGPS> GPS上报;
+
+        /// <summary>
+        /// string 号码, string 状态, string 描述
+        /// </summary>
+        event Action<string, string, string> 状态上报;
 
         bool 有管理界面 { get; }
 

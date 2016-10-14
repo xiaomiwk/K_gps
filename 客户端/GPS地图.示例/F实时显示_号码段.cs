@@ -49,7 +49,7 @@ namespace GPS地图.示例
                 new F对话框_确定("输入错误!").ShowDialog();
                 return;
             }
-            _F显示号码.设置号码(__列表);
+            _F显示号码.设置号码(__列表.Select(q => new M个号 {  号码 = q }).ToList());
         }
     }
 }

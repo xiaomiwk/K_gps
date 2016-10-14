@@ -30,10 +30,10 @@ namespace GPS地图.示例
         {
             base.OnLoad(e);
 
-            this.in号码范围.Text = "72020200,72020300,72020400";
+            this.in号码列表.Text = "";
             this.in开始时间.Value = DateTime.Now.Date;
-            this.in结束时间.Value = DateTime.Now.Date.AddDays(1);
-            this.in号码范围.KeyDown += in号码范围_KeyDown;
+            //this.in结束时间.Value = DateTime.Now.Date.AddDays(1);
+            this.in号码列表.KeyDown += in号码列表_KeyDown;
             this.do查询.Click += do查询_Click;
             this.in显示轨迹.Enabled = false;
             this.in显示轨迹.Checked = true;
@@ -45,7 +45,7 @@ namespace GPS地图.示例
             _F回放.IV地图.显隐静态轨迹();
         }
 
-        void in号码范围_KeyDown(object sender, KeyEventArgs e)
+        void in号码列表_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -55,14 +55,18 @@ namespace GPS地图.示例
 
         void do查询_Click(object sender, EventArgs e)
         {
-            var __输入 = this.in号码范围.Text;
-            var __开始时间 = this.in开始时间.Value;
-            var __结束时间 = this.in结束时间.Value;
+            var __输入 = this.in号码列表.Text;
+            var __日期 = this.in日期.Value.Date;
+            var __时间 = this.in开始时间.Value;
+            var __开始时间 = __日期.AddHours(__时间.Hour).AddMinutes(__时间.Minute);
+            __时间 = this.in结束时间.Value;
+            var __结束时间 = __日期.AddHours(__时间.Hour).AddMinutes(__时间.Minute).AddSeconds(59).AddMilliseconds(999);
+            this.in显示轨迹.Checked = true;
 
-            List<int> __列表;
+            List<string> __号码列表;
             try
             {
-                __列表 = H序列化.字符串转单值列表(__输入);
+                __号码列表 = __输入.Split(new char[] { ',' , '，' }, StringSplitOptions.RemoveEmptyEntries).ToList();
             }
             catch (Exception)
             {
@@ -74,12 +78,12 @@ namespace GPS地图.示例
             __等待窗口.居中();
 
             var __回放 = new List<M回放>();
-            var __参数 = new Dictionary<string, M图标显示参数>();
+            var __参数 = new Dictionary<M个号, M图标显示参数>();
             try
             {
-                __列表.ForEach(__号码 =>
+                __号码列表.ForEach(__号码 =>
                 {
-                    var __轨迹 = BGPS应用.轨迹.查询轨迹(new List<Tuple<int, DateTime, DateTime>> { new Tuple<int, DateTime, DateTime>(__号码, __开始时间, __结束时间) });
+                    var __轨迹 = B入口.数据.查询轨迹(new List<Tuple<string, DateTime, DateTime>> { new Tuple<string, DateTime, DateTime>(__号码, __开始时间, __结束时间) });
                     var __标识 = __号码.ToString();
                     var __显示参数 = new M图标显示参数 { 名称 = __号码.ToString(), 图片 = GPS地图.Properties.Resources.最近更新, 名称一直显示 = true };
                     __回放.Add(new M回放
@@ -89,7 +93,7 @@ namespace GPS地图.示例
                         静态轨迹颜色 = Color.Red,
                         显示参数 = __显示参数,
                     });
-                    __参数[__标识] = __显示参数;
+                    __参数[new M个号 { 号码 = int.Parse(__标识) } ] = __显示参数;
                 });
             }
             catch (Exception)

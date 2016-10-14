@@ -47,10 +47,10 @@ namespace 管理工具
             }
 
             this.out号码列表.Rows.Clear();
-            var __号码段列表 = HJSON.反序列化<List<M号码段>>(_IT客户端.执行方法("订阅", "查询所有号码段", null));
+            var __号码段列表 = HJSON.反序列化<List<string>>(_IT客户端.执行方法("订阅", "查询所有号码", null));
             for (int i = 0; i < __号码段列表.Count; i++)
             {
-                this.out号码列表.Rows.Add(new object[] { __号码段列表[i].起始, __号码段列表[i].结束 });
+                this.out号码列表.Rows.Add(new object[] { __号码段列表[i] });
             }
         }
 
@@ -59,7 +59,7 @@ namespace 管理工具
             if (e.ColumnIndex == this.out客户端列表.ColumnCount - 1 && e.RowIndex >= 0)
             {
                 var __地址 = this.out客户端列表.Rows[e.RowIndex].Cells[0].Value.ToString();
-                var __号码段列表 = HJSON.反序列化<List<M号码段>>(_IT客户端.执行方法("订阅", "查询客户端明细",
+                var __号码段列表 = HJSON.反序列化<List<string>>(_IT客户端.执行方法("订阅", "查询客户端明细",
                     new Dictionary<string, string> { { "IP", __地址.Split(':')[0] }, { "端口号", __地址.Split(':')[1] } }));
                 new F空窗口(new F订阅_详细(__号码段列表), "订阅明细").ShowDialog(this.ParentForm);
             }

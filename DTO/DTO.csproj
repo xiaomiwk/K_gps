@@ -30,28 +30,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\资源\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GPS数据\M号码位置.cs" />
-    <Compile Include="GPS数据\MGPS时间分布统计结果.cs" />
-    <Compile Include="GPS数据\MGPS时间分布统计条件.cs" />
-    <Compile Include="GPS数据\M最后位置快照查询条件.cs" />
-    <Compile Include="GPS数据\MGPS频率统计条件.cs" />
+    <Compile Include="GPS数据\M频率统计条件.cs" />
     <Compile Include="GPS数据\M活跃号码查询条件.cs" />
-    <Compile Include="GPS数据\M休眠号码查询条件.cs" />
     <Compile Include="GPS数据\M最后位置查询条件.cs" />
-    <Compile Include="GPS数据\M休眠号码查询结果.cs" />
     <Compile Include="GPS数据\M活跃号码查询结果.cs" />
     <Compile Include="GPS数据\M轨迹查询条件.cs" />
     <Compile Include="GPS数据\M最后位置查询结果 .cs" />
@@ -66,11 +57,8 @@
     <Compile Include="插件\MGPS过滤.cs" />
     <Compile Include="日志\M查询结果.cs" />
     <Compile Include="日志\M查询条件.cs" />
-    <Compile Include="M号码段.cs" />
-    <Compile Include="M号码段列表Converter.cs" />
     <Compile Include="订阅\M客户端概要.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

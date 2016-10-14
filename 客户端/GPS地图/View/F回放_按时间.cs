@@ -42,9 +42,10 @@ namespace GPS地图.View
             this.in速度.DataSource = __倍速列表;
             this.in速度.SelectedValue = 60;
 
-            this.out进度.Enabled = false;
+            //this.out进度.Enabled = false;
             this.out进度.Minimum = 0;
             this.out进度.Maximum = 100;
+            this.out进度.TickFrequency = 10;
 
             this.out地图.Controls.Add(_FGPS);
 
@@ -54,6 +55,12 @@ namespace GPS地图.View
             this.do停止.Click += (sender1, e1) => this.On停止();
             this.do播放.Click += (sender1, e1) => this.On播放((int)this.in速度.SelectedValue);
             this.in速度.SelectedValueChanged += (sender1, e1) => this.On改变播放参数((int)this.in速度.SelectedValue);
+            this.out进度.ValueChanged += Out进度_ValueChanged;
+        }
+
+        private void Out进度_ValueChanged(object sender, EventArgs e)
+        {
+            this.On跳转进度(this.out进度.Value);
         }
 
         #region IV回放
@@ -69,6 +76,7 @@ namespace GPS地图.View
             this.do暂停.Enabled = true;
             this.do播放.Enabled = true;
             this.do停止.Enabled = true;
+            this.out进度.Enabled = false;
             switch (状态)
             {
                 case E播放状态.不可用:
@@ -83,6 +91,7 @@ namespace GPS地图.View
                     this.do停止.Enabled = false;
                     break;
                 case E播放状态.播放:
+                    this.out进度.Enabled = true;
                     this.do播放.Enabled = false;
                     this.do暂停.BringToFront();
                     break;
@@ -107,8 +116,9 @@ namespace GPS地图.View
                 this.BeginInvoke(new Action<int>(显示播放进度), 进度);
                 return;
             }
-
+            this.out进度.ValueChanged -= Out进度_ValueChanged;
             this.out进度.Value = 进度;
+            this.out进度.ValueChanged += Out进度_ValueChanged;
         }
 
         public void 显示播放时间(DateTime 时间)
@@ -165,6 +175,13 @@ namespace GPS地图.View
             this.out时间.Text = 开始时间.ToString("MM-dd HH:mm:ss");
         }
 
+        public event Action<int> 跳转进度;
+
+        protected virtual void On跳转进度(int __进度)
+        {
+            var handler = 跳转进度;
+            if (handler != null) handler(__进度);
+        }
         #endregion
 
         public IV地图 IV地图

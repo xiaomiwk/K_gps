@@ -3,17 +3,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using DTO;
 using GPS地图.DTO;
-using Utility.通用;
 
 namespace GPS地图.IBLL.实现
 {
     class B回放_按时间 : IB回放_按时间
     {
-        private readonly Dictionary<string, List<MGPS>> _未播轨迹列表 = new Dictionary<string, List<MGPS>>();
-
         private DateTime _当前播放时间;
 
         private int _播放倍速;
@@ -27,6 +23,8 @@ namespace GPS地图.IBLL.实现
         private int _回放标识;
 
         Dictionary<string, List<MGPS>> _GPS数据列表 = new Dictionary<string, List<MGPS>>();
+
+        int _刻度 = 100;
 
         public void 初始化(Dictionary<string, List<MGPS>> 回放参数)
         {
@@ -57,10 +55,7 @@ namespace GPS地图.IBLL.实现
 
         public DateTime 实际结束时间 { get; set; }
 
-        public DateTime 当前时间
-        {
-            get { return _当前播放时间; }
-        }
+        public DateTime 当前时间 { get { return _当前播放时间; } }
 
         public void 播放(int __倍速)
         {
@@ -69,12 +64,6 @@ namespace GPS地图.IBLL.实现
             {
                 _回放标识++;
                 _当前播放时间 = 实际开始时间;
-                _未播轨迹列表.Clear();
-                foreach (var __kv in _GPS数据列表)
-                {
-                    var __GPS列表拷贝 = new List<MGPS>(__kv.Value);
-                    _未播轨迹列表[__kv.Key] = __GPS列表拷贝;
-                }
                 _当前播放状态 = E播放状态.播放;
                 _播放定时器 = new Timer(定时执行, _回放标识, 0, _定时器间隔);
             }
@@ -93,25 +82,24 @@ namespace GPS地图.IBLL.实现
             {
                 return;
             }
-            _当前播放时间 = _当前播放时间.AddMilliseconds(_定时器间隔 * _播放倍速);
-            On当前时间变化(_当前播放时间);
-            const int __刻度 = 100;
-            var __进度 = ((int)(_当前播放时间.Subtract(实际开始时间).TotalSeconds) * __刻度 / (int)(实际结束时间.Subtract(实际开始时间).TotalSeconds));
-            On播放进度变化(Math.Min(__刻度, __进度));
-            foreach (var __kv in _未播轨迹列表)
+            var __当前播放时间 = _当前播放时间.AddMilliseconds(_定时器间隔 * _播放倍速);
+            _当前播放时间 = __当前播放时间;
+            On当前时间变化(__当前播放时间);
+            var __进度 = ((int)(__当前播放时间.Subtract(实际开始时间).TotalSeconds) * _刻度 / (int)(实际结束时间.Subtract(实际开始时间).TotalSeconds));
+            On播放进度变化(Math.Min(_刻度, __进度));
+            foreach (var __kv in _GPS数据列表)
             {
                 var __号码 = __kv.Key;
                 var __GPS列表 = __kv.Value;
                 //查找对应时段内的轨迹，如果有则删除原标记，添加新标记
-                var __匹配GPS = __GPS列表.FindLast(q => q.时间 <= _当前播放时间);
+                var __匹配GPS = __GPS列表.FindLast(q => q.时间 <= __当前播放时间);
                 if (__匹配GPS != null)
                 {
                     On位置更新(__号码, __匹配GPS);
-                    __GPS列表.RemoveAll(q => q.时间 <= _当前播放时间);
                 }
             }
 
-            if (实际结束时间 <= _当前播放时间)
+            if (实际结束时间 <= __当前播放时间)
             {
                 停止();
             }
@@ -125,6 +113,18 @@ namespace GPS地图.IBLL.实现
 
         public void 停止()
         {
+            if (_GPS数据列表 != null && _GPS数据列表.Count > 0)
+            {
+                foreach (var __kv in _GPS数据列表)
+                {
+                    var __号码 = __kv.Key;
+                    var __GPS列表 = __kv.Value;
+                    if (__GPS列表.Count > 0)
+                    {
+                        On位置更新(__号码, __GPS列表.Last());
+                    }
+                }
+            }
             _当前播放状态 = E播放状态.停止;
             On播放状态变化(_当前播放状态);
             On播放进度变化(100);
@@ -135,6 +135,11 @@ namespace GPS地图.IBLL.实现
         public void 改变播放参数(int __倍速)
         {
             _播放倍速 = __倍速;
+        }
+
+        public void 跳转进度(int __进度)
+        {
+            _当前播放时间 = 实际开始时间.AddSeconds(实际结束时间.Subtract(实际开始时间).TotalSeconds * __进度 / _刻度);
         }
 
         public event Action<int> 播放进度变化;

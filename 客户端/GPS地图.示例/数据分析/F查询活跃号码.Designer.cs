@@ -1,6 +1,6 @@
-﻿namespace 管理工具
+﻿namespace GPS地图.示例.数据分析
 {
-    partial class F订阅_详细
+    partial class F查询活跃号码
     {
         /// <summary> 
         /// 必需的设计器变量。
@@ -53,7 +53,7 @@
             this.out号码列表.ReadOnly = true;
             this.out号码列表.RowHeadersVisible = false;
             this.out号码列表.RowTemplate.Height = 23;
-            this.out号码列表.Size = new System.Drawing.Size(218, 488);
+            this.out号码列表.Size = new System.Drawing.Size(174, 485);
             this.out号码列表.TabIndex = 41;
             // 
             // dataGridViewTextBoxColumn1
@@ -61,27 +61,27 @@
             this.dataGridViewTextBoxColumn1.HeaderText = "号码";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 200;
+            this.dataGridViewTextBoxColumn1.Width = 150;
             // 
             // out总数
             // 
             this.out总数.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.out总数.AutoSize = true;
-            this.out总数.Location = new System.Drawing.Point(3, 497);
+            this.out总数.Location = new System.Drawing.Point(0, 497);
             this.out总数.Name = "out总数";
             this.out总数.Size = new System.Drawing.Size(43, 17);
-            this.out总数.TabIndex = 44;
+            this.out总数.TabIndex = 42;
             this.out总数.Text = "label1";
             // 
-            // F订阅_详细
+            // F查询活跃号码
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.out总数);
             this.Controls.Add(this.out号码列表);
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Name = "F订阅_详细";
-            this.Size = new System.Drawing.Size(224, 514);
+            this.Name = "F查询活跃号码";
+            this.Size = new System.Drawing.Size(180, 514);
             ((System.ComponentModel.ISupportInitialize)(this.out号码列表)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

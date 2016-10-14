@@ -52,7 +52,10 @@ namespace GPS地图.示例
             _F显示号码.out组号列表.CellMouseClick += Out组号列表_CellMouseClick;
             _F显示号码.显示GPS.单击标识 += 显示GPS_单击标识;
 
-            添加简单圈选(_F显示号码._FGPS.地图);
+            if (H程序配置.获取Bool值("圈选"))
+            {
+                添加简单圈选(_F显示号码._FGPS.地图);
+            }
         }
 
         void 显示GPS_单击标识(string __标识)
@@ -67,7 +70,7 @@ namespace GPS地图.示例
         void do清空号码_Click(object sender, EventArgs e)
         {
             _根节点.Nodes.Clear();
-            _F显示号码.设置号码(new List<int>());
+            _F显示号码.设置号码(new List<M个号>());
         }
 
         void do重新加载_Click(object sender, EventArgs e)
@@ -83,7 +86,7 @@ namespace GPS地图.示例
                 显示部门(_根节点, __所有部门);
                 _根节点.Expand();
             }
-            _F显示号码.设置号码(new List<int>());
+            _F显示号码.设置号码(new List<M个号>());
         }
 
         void out单位列表_AfterCheck(object sender, TreeViewEventArgs e)
@@ -96,7 +99,7 @@ namespace GPS地图.示例
             var __选择个号 = new List<M个号>();
             var __选择组号 = new List<M组号>();
             获取选择(_根节点, __选择个号, __选择组号);
-            _F显示号码.设置号码(__选择个号.Select(q => q.号码).Distinct().ToList(), __选择组号.Select(q => q.号码).Distinct().ToList());
+            _F显示号码.设置号码(__选择个号, __选择组号);
         }
 
         private void 递归选择(TreeNode __node, bool __选中)
@@ -204,7 +207,7 @@ namespace GPS地图.示例
             {
                 return;
             }
-            var __标识 = ((DataGridView)sender).Rows[e.RowIndex].Cells[0].Value.ToString();
+            var __标识 = (((DataGridView)sender).Rows[e.RowIndex].Tag as M个号).号码.ToString();
             var __个号 = _所有个号.Find(q => q.号码.ToString() == __标识);
             if (__个号 == null)
             {
@@ -219,8 +222,8 @@ namespace GPS地图.示例
             {
                 return;
             }
-            var __标识 = ((DataGridView)sender).Rows[e.RowIndex].Cells[0].Value.ToString();
-            var __组号 = _所有组号.Find(q => q.号码.ToString() == __标识);
+            var __标识 = (((DataGridView)sender).Rows[e.RowIndex].Tag as M组号).号码;
+            var __组号 = _所有组号.Find(q => q.号码 == __标识);
             if (__组号 == null)
             {
                 return;
@@ -237,8 +240,8 @@ namespace GPS地图.示例
             {
                 return;
             }
-            var __标识 = ((DataGridView)sender).Rows[e.RowIndex].Cells[0].Value.ToString();
-            var __组号 = _所有组号.Find(q => q.号码.ToString() == __标识);
+            var __标识 = (((DataGridView)sender).Rows[e.RowIndex].Tag as M组号).号码;
+            var __组号 = _所有组号.Find(q => q.号码 == __标识);
             if (__组号 == null)
             {
                 return;

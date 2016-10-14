@@ -19,27 +19,34 @@ namespace GIS服务器
 {
     public interface IDGPS数据
     {
-        void 保存(int __号码, MGPS __位置);
+        void 保存(string __号码, MGPS __位置);
 
         [NoLog]
         M轨迹查询结果 查询轨迹(M轨迹查询条件 __条件);
 
         M最后位置查询结果 查询最后位置(M最后位置查询条件 __条件);
 
-        Dictionary<int, MGPS> 查询最后位置(DateTime __开始时间);
+        Dictionary<string, MGPS> 查询最后位置(DateTime __开始时间);
 
         void 清除过期数据(int __过期天数);
+
+        M活跃号码查询结果 查询活跃号码(M活跃号码查询条件 __条件);
+
+        int 统计活跃号码(M活跃号码查询条件 __条件);
+
+        float 统计频率(M频率统计条件 __条件);
+
     }
 
     internal class DGPS数据_内存 : IDGPS数据
     {
-        private Dictionary<int, MGPS> _最后位置缓存 = new Dictionary<int, MGPS>();
+        private Dictionary<string, MGPS> _最后位置缓存 = new Dictionary<string, MGPS>();
 
         private readonly double _参照经度 = 118.7816;
 
         private readonly double _参照纬度 = 32.0617;
 
-        public void 保存(int __号码, MGPS __位置)
+        public void 保存(string __号码, MGPS __位置)
         {
             _最后位置缓存[__号码] = __位置;
         }
@@ -66,15 +73,15 @@ namespace GIS服务器
             return __结果;
         }
 
-        public Dictionary<int, MGPS> 查询最后位置(DateTime 开始时间)
+        public Dictionary<string, MGPS> 查询最后位置(DateTime 开始时间)
         {
-            return new Dictionary<int, MGPS>(_最后位置缓存);
+            return new Dictionary<string, MGPS>(_最后位置缓存);
         }
 
         public M最后位置查询结果 查询最后位置(M最后位置查询条件 __条件)
         {
             var __位置列表 = _最后位置缓存.Select(__kv => new M号码位置 { 号码 = __kv.Key, GPS = __kv.Value }).ToList();
-            return new M最后位置查询结果 { 总数量 = _最后位置缓存.Count, 列表 = __位置列表 };
+            return new M最后位置查询结果 { 总数 = _最后位置缓存.Count, 列表 = __位置列表 };
         }
 
         public void 清除过期数据(int 过期天数)
@@ -82,6 +89,20 @@ namespace GIS服务器
 
         }
 
+        public M活跃号码查询结果 查询活跃号码(M活跃号码查询条件 __条件)
+        {
+            throw new NotImplementedException();
+        }
+
+        public float 统计频率(M频率统计条件 __条件)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int 统计活跃号码(M活跃号码查询条件 __条件)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     internal class DGPS数据 : IDGPS数据
@@ -103,42 +124,37 @@ IF NOT EXISTS (SELECT NAME FROM SYSOBJECTS WHERE XTYPE='U' AND NAME = '{0}')
 	BEGIN
         CREATE TABLE {0}(
 	        [Id] [int] PRIMARY KEY CLUSTERED IDENTITY NOT NULL,
-	        [号码] [int] NOT NULL,
+	        [号码] [nvarchar](20) NOT NULL,
 	        [时间] [datetime2](0) NOT NULL,
 	        [经度] [decimal](10, 7) NOT NULL,
 	        [纬度] [decimal](10, 7) NOT NULL,
-	        [高度] [smallint] NOT NULL,
-	        [速度] [smallint] NOT NULL,
-	        [方向] [smallint] NOT NULL,
-	        [精度] [smallint] NOT NULL
+	        [高度] [smallint] NULL,
+	        [速度] [smallint] NULL,
+	        [方向] [smallint] NULL,
+	        [精度] [smallint] NULL
         ) ON [PRIMARY]
 
-        CREATE NONCLUSTERED INDEX [号码与时间] ON {0}
-        (
-	        [号码] ASC,
-	        [时间] ASC
-        )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+        CREATE INDEX [号码与时间] ON [dbo].[一天位置_20161008]
+        ([号码] ASC, [时间] ASC) 
+
+        CREATE INDEX [时间] ON [dbo].[一天位置_20161008]
+        ([时间] ASC) 
 	END
 ";
 
         private const string _建最后位置表 = @"
 IF NOT EXISTS (SELECT NAME FROM SYSOBJECTS WHERE XTYPE='U' AND NAME = '最后位置')
 	BEGIN
-        CREATE TABLE [dbo].[最后位置](
-	        [号码] [int] NOT NULL,
-	        [时间] [datetime2](0) NOT NULL,
-	        [经度] [decimal](10, 7) NOT NULL,
-	        [纬度] [decimal](10, 7) NOT NULL,
-	        [高度] [smallint] NOT NULL,
-	        [速度] [smallint] NOT NULL,
-	        [方向] [smallint] NOT NULL,
-	        [精度] [smallint] NOT NULL,
-         CONSTRAINT [PK_最后位置] PRIMARY KEY CLUSTERED 
-        (
-	        [号码] ASC
-        )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
-        ) ON [PRIMARY]
-
+        CREATE TABLE [dbo].[最后位置] (
+            [号码] nvarchar(20) NOT NULL ,
+            [时间] datetime2 NOT NULL ,
+            [经度] decimal(10,7) NOT NULL ,
+            [纬度] decimal(10,7) NOT NULL ,
+            [高度] smallint NULL ,
+            [速度] smallint NULL ,
+            [方向] smallint NULL ,
+            [精度] smallint NULL 
+        )
 	END
 ";
 
@@ -146,7 +162,7 @@ IF NOT EXISTS (SELECT NAME FROM SYSOBJECTS WHERE XTYPE='U' AND NAME = '最后位
 
         private BlockingCollection<M号码位置> _数据缓存 = new BlockingCollection<M号码位置>(50000);
 
-        private Dictionary<int, MGPS> _最后位置;
+        private Dictionary<string, MGPS> _最后位置;
 
         public DGPS数据()
         {
@@ -174,15 +190,22 @@ IF NOT EXISTS (SELECT NAME FROM SYSOBJECTS WHERE XTYPE='U' AND NAME = '最后位
                 var __当前表 = "";
                 while (true)
                 {
-                    var __更新数量 = 0;
-                    Let.Us.DelayAfter(_批量增加GPS频率, __耗时 =>
+                    try
                     {
-                        if (__耗时 > 1000)
+                        var __更新数量 = 0;
+                        Let.Us.DelayAfter(_批量增加GPS频率, __耗时 =>
                         {
-                            H调试.记录(string.Format("批量增加GPS {1} 条, 耗时 {0} 毫秒", __耗时, __更新数量));
-                        }
-                    })
-                        .Do(() => __更新数量 = 批量增加GPS(ref __当前表));
+                            if (__耗时 > 1000)
+                            {
+                                H调试.记录(string.Format("批量增加GPS {1} 条, 耗时 {0} 毫秒", __耗时, __更新数量));
+                            }
+                        })
+                            .Do(() => __更新数量 = 批量增加GPS(ref __当前表));
+                    }
+                    catch (Exception ex)
+                    {
+                        H调试.记录异常(ex);
+                    }
                 }
             });
 
@@ -190,22 +213,29 @@ IF NOT EXISTS (SELECT NAME FROM SYSOBJECTS WHERE XTYPE='U' AND NAME = '最后位
             {
                 while (true)
                 {
-                    var __更新数量 = 0;
-                    Let.Us.DelayAfter(_批量更新最后GPS频率, __耗时 =>
+                    try
                     {
-                        if (__耗时 > 1000)
+                        var __更新数量 = 0;
+                        Let.Us.DelayAfter(_批量更新最后GPS频率, __耗时 =>
                         {
-                            H调试.记录(string.Format("批量更新最后GPS {1} 条, 耗时 {0} 毫秒", __耗时, __更新数量));
-                        }
-                    })
-                        .Do(() => { __更新数量 = 批量更新最后GPS(); });
+                            if (__耗时 > 1000)
+                            {
+                                H调试.记录(string.Format("批量更新最后GPS {1} 条, 耗时 {0} 毫秒", __耗时, __更新数量));
+                            }
+                        })
+                            .Do(() => { __更新数量 = 批量更新最后GPS(); });
+                    }
+                    catch (Exception ex)
+                    {
+                        H调试.记录异常(ex);
+                    }
                 }
             });
         }
 
-        private Dictionary<int, MGPS> 查询最后位置()
+        private Dictionary<string, MGPS> 查询最后位置()
         {
-            var __结果 = new Dictionary<int, MGPS>();
+            var __结果 = new Dictionary<string, MGPS>();
             using (var __连接 = new SqlConnection(_连接字符串))
             {
                 var __sql = "SELECT [号码],[时间],[经度],[纬度],[高度],[速度],[方向],[精度] FROM [dbo].[最后位置]";
@@ -213,7 +243,7 @@ IF NOT EXISTS (SELECT NAME FROM SYSOBJECTS WHERE XTYPE='U' AND NAME = '最后位
                 {
                     while (__访问器.Read())
                     {
-                        __结果[__访问器.GetInt32(0)] = new MGPS
+                        __结果[__访问器.GetString(0)] = new MGPS
                         {
                             时间 = __访问器.GetDateTime(1),
                             经度 = (double)__访问器.GetDecimal(2),
@@ -231,11 +261,15 @@ IF NOT EXISTS (SELECT NAME FROM SYSOBJECTS WHERE XTYPE='U' AND NAME = '最后位
 
         private int 批量更新最后GPS()
         {
+            if (_最后位置.Count == 0)
+            {
+                return 0;
+            }
             using (var __连接 = new SqlConnection(_连接字符串))
             {
                 SQLHelper.ExecuteNonQuery(__连接, "TRUNCATE TABLE [dbo].[最后位置]");
             }
-            var __缓存 = new Dictionary<int, MGPS>(_最后位置);
+            var __缓存 = new Dictionary<string, MGPS>(_最后位置);
             批量增加("最后位置", __缓存.Select(q => new M号码位置 { 号码 = q.Key, GPS = q.Value }).ToList());
             return __缓存.Count;
         }
@@ -248,6 +282,10 @@ IF NOT EXISTS (SELECT NAME FROM SYSOBJECTS WHERE XTYPE='U' AND NAME = '最后位
             while (_数据缓存.TryTake(out __上报数据))
             {
                 __上报数据列表.Add(__上报数据);
+            }
+            if (__上报数据列表.Count == 0)
+            {
+                return 0;
             }
             foreach (var __分组 in __上报数据列表.GroupBy(x => x.GPS.时间.Date))
             {
@@ -274,7 +312,7 @@ IF NOT EXISTS (SELECT NAME FROM SYSOBJECTS WHERE XTYPE='U' AND NAME = '最后位
             var __位置表 = new DataTable();
             __位置表.Columns.AddRange(new[]
                 {
-                    new DataColumn("号码", typeof (int)),
+                    new DataColumn("号码", typeof (string)),
                     new DataColumn("时间", typeof(DateTime)),
                     new DataColumn("经度", typeof(decimal)),
                     new DataColumn("纬度", typeof(decimal)),
@@ -290,10 +328,10 @@ IF NOT EXISTS (SELECT NAME FROM SYSOBJECTS WHERE XTYPE='U' AND NAME = '最后位
                 __行["时间"] = __数据.GPS.时间;
                 __行["经度"] = __数据.GPS.经度;
                 __行["纬度"] = __数据.GPS.纬度;
-                __行["高度"] = __数据.GPS.高度;
-                __行["速度"] = __数据.GPS.速度;
-                __行["方向"] = __数据.GPS.方向;
-                __行["精度"] = __数据.GPS.精度;
+                __行["高度"] = __数据.GPS.高度.HasValue ? __数据.GPS.高度.Value : 0;
+                __行["速度"] = __数据.GPS.速度.HasValue ? __数据.GPS.速度.Value : 0;
+                __行["方向"] = __数据.GPS.方向.HasValue ? __数据.GPS.方向.Value : 0;
+                __行["精度"] = __数据.GPS.精度.HasValue ? __数据.GPS.精度.Value : 0;
                 __位置表.Rows.Add(__行);
             });
 
@@ -311,10 +349,9 @@ IF NOT EXISTS (SELECT NAME FROM SYSOBJECTS WHERE XTYPE='U' AND NAME = '最后位
                 __批量复制.ColumnMappings.Add("精度", "精度");
                 __批量复制.WriteToServer(__位置表);
             }
-
         }
 
-        public void 保存(int __号码, MGPS __位置)
+        public void 保存(string __号码, MGPS __位置)
         {
             _数据缓存.TryAdd(new M号码位置 { 号码 = __号码, GPS = __位置 });
             _最后位置[__号码] = __位置;
@@ -330,8 +367,8 @@ IF NOT EXISTS (SELECT NAME FROM SYSOBJECTS WHERE XTYPE='U' AND NAME = '最后位
             using (var __连接 = new SqlConnection(_连接字符串))
             {
                 var __sql = string.Format("SELECT 1 FROM SYSOBJECTS WHERE XTYPE='U' AND NAME = '{0}'", __表名);
-                var __数量 = (int)SQLHelper.ExecuteScalar(__连接, __sql);
-                if (__数量 == 0)
+                var __数量 = SQLHelper.ExecuteScalar(__连接, __sql); ;
+                if (__数量 == null || (int)__数量 == 0)
                 {
                     return __结果;
                 }
@@ -340,12 +377,12 @@ IF NOT EXISTS (SELECT NAME FROM SYSOBJECTS WHERE XTYPE='U' AND NAME = '最后位
                 var __号码 = new SqlParameter("号码", __条件.号码);
                 var __开始时间 = new SqlParameter("开始时间", __条件.开始时间);
                 var __结束时间 = new SqlParameter("结束时间", __条件.结束时间);
-                __数量 = (int)SQLHelper.ExecuteScalar(__连接, __sql, new DbParameter[] { __号码, __开始时间, __结束时间 });
-                if (__数量 == 0)
+                __数量 = SQLHelper.ExecuteScalar(__连接, __sql, new DbParameter[] { __号码, __开始时间, __结束时间 });
+                if (__数量 == null || (int)__数量 == 0)
                 {
                     return __结果;
                 }
-                __结果.总数量 = __数量;
+                __结果.总数量 = (int)__数量;
 
                 __sql = 获取分页SQL(__表名, "时间, 经度, 纬度, 高度, 速度, 方向, 精度", "号码 = @号码 AND 时间 >= @开始时间 AND 时间 <= @结束时间", "时间 ASC", __页码, __每页数量);
                 __号码 = new SqlParameter("号码", __条件.号码);
@@ -374,33 +411,29 @@ IF NOT EXISTS (SELECT NAME FROM SYSOBJECTS WHERE XTYPE='U' AND NAME = '最后位
 
         public M最后位置查询结果 查询最后位置(M最后位置查询条件 __条件)
         {
-            var __temp = new Dictionary<int, MGPS>(_最后位置);
+            var __temp = new Dictionary<string, MGPS>(_最后位置);
             var __结果 = new List<M号码位置>();
             var __匹配数量 = 0;
             foreach (var __kv in __temp)
             {
-                if (__kv.Value.时间 < __条件.开始时间 || __kv.Value.时间 > __条件.结束时间)
-                {
-                    continue;
-                }
-                if (__条件.号码范围 != null && __条件.号码范围.Count > 0 && !__条件.号码范围.Exists(q => q.起始 <= __kv.Key && q.结束 >= __kv.Key))
+                if (__条件.号码列表 != null && __条件.号码列表.Count > 0 && !__条件.号码列表.Contains(__kv.Key))
                 {
                     continue;
                 }
                 __匹配数量++;
-                if (__条件.每页数量.HasValue && __条件.页码.HasValue && __匹配数量 >= (__条件.页码 - 1) * __条件.每页数量 && __匹配数量 < __条件.页码 * __条件.每页数量)
+                if (__条件.每页数量.HasValue && __条件.页码.HasValue && __匹配数量 <= (__条件.页码 - 1) * __条件.每页数量 && __匹配数量 > __条件.页码 * __条件.每页数量)
                 {
                     continue;
                 }
                 __结果.Add(new M号码位置 { 号码 = __kv.Key, GPS = __kv.Value });
             }
-            return new M最后位置查询结果 { 列表 = __结果, 总数量 = __结果.Count };
+            return new M最后位置查询结果 { 列表 = __结果, 总数 = __结果.Count };
         }
 
-        public Dictionary<int, MGPS> 查询最后位置(DateTime __开始时间)
+        public Dictionary<string, MGPS> 查询最后位置(DateTime __开始时间)
         {
-            var __结果 = new Dictionary<int, MGPS>();
-            var __temp = new Dictionary<int, MGPS>(_最后位置);
+            var __结果 = new Dictionary<string, MGPS>();
+            var __temp = new Dictionary<string, MGPS>(_最后位置);
             foreach (var __kv in __temp)
             {
                 if (__kv.Value.时间 >= __开始时间)
@@ -449,6 +482,130 @@ IF NOT EXISTS (SELECT NAME FROM SYSOBJECTS WHERE XTYPE='U' AND NAME = '最后位
             }
             var __sql = string.Format(__分页查询, __页数 * __每页数量 - __每页数量, __页数 * __每页数量, __whereSql, __sortSql, __selectSql);
             return __sql;
+        }
+
+        public M活跃号码查询结果 查询活跃号码(M活跃号码查询条件 __条件)
+        {
+            var __结果 = new List<string>();
+            using (var __连接 = new SqlConnection(_连接字符串))
+            {
+                if (!存在表(__连接, __条件.开始时间.Date))
+                {
+                    return new M活跃号码查询结果 { 总数 = __结果.Count, 号码列表 = __结果 };
+                }
+                var __表名 = _表前缀 + __条件.开始时间.Date.ToString("yyyyMMdd");
+                var __sql = string.Format("SELECT DISTINCT [号码] FROM {0} WHERE 时间 >= @开始时间 AND 时间 <= @结束时间", __表名);
+                var __参数列表 = new DbParameter[2] { new SqlParameter("开始时间", __条件.开始时间), new SqlParameter("结束时间", __条件.结束时间) };
+                using (var __访问器 = SQLHelper.ExecuteReader(__连接, __sql, __参数列表))
+                {
+                    while (__访问器.Read())
+                    {
+                        var __号码 = __访问器.GetString(0);
+                        if (__条件.号码列表 == null || __条件.号码列表.Count == 0 || __条件.号码列表.Contains(__号码))
+                        {
+                            __结果.Add(__号码);
+                        }
+                    }
+                }
+            }
+            return new M活跃号码查询结果 { 总数 = __结果.Count, 号码列表 = __结果 };
+        }
+
+        public int 统计活跃号码(M活跃号码查询条件 __条件)
+        {
+            var __号码列表 = __条件.号码列表;
+            var __总数 = 0;
+            using (var __连接 = new SqlConnection(_连接字符串))
+            {
+                if (!存在表(__连接, __条件.开始时间.Date))
+                {
+                    return 0;
+                }
+                var __表名 = _表前缀 + __条件.开始时间.Date.ToString("yyyyMMdd");
+                if (__条件.号码列表 == null || __号码列表.Count == 0)
+                {
+                    var __sql = string.Format("SELECT COUNT(DISTINCT [号码]) FROM {0} WHERE 时间 >= @开始时间 AND 时间 <= @结束时间", __表名);
+                    var __参数列表 = new DbParameter[2] { new SqlParameter("开始时间", __条件.开始时间), new SqlParameter("结束时间", __条件.结束时间) };
+                    __总数 = (int)SQLHelper.ExecuteScalar(__连接, __sql, __参数列表);
+                    return __总数;
+                }
+                else
+                {
+                    var __sql = string.Format("SELECT DISTINCT [号码] FROM {0} WHERE 时间 >= @开始时间 AND 时间 <= @结束时间", __表名);
+                    var __参数列表 = new DbParameter[2] { new SqlParameter("开始时间", __条件.开始时间), new SqlParameter("结束时间", __条件.结束时间) };
+                    using (var __访问器 = SQLHelper.ExecuteReader(__连接, __sql, __参数列表))
+                    {
+                        while (__访问器.Read())
+                        {
+                            var __号码 = __访问器.GetString(0);
+                            if (__号码列表.Contains(__号码))
+                            {
+                                __总数++;
+                            }
+                        }
+                    }
+                    return __总数;
+                }
+            }
+        }
+
+        public float 统计频率(M频率统计条件 __条件)
+        {
+            var __号码列表 = __条件.号码列表;
+            var __总数 = 0;
+            var __号码总数 = 0;
+            using (var __连接 = new SqlConnection(_连接字符串))
+            {
+                if (!存在表(__连接, __条件.开始时间.Date))
+                {
+                    return 0;
+                }
+                var __表名 = _表前缀 + __条件.开始时间.Date.ToString("yyyyMMdd");
+                if (__条件.号码列表 == null || __号码列表.Count == 0)
+                {
+                    var __sql = string.Format("SELECT COUNT([号码]) FROM {0} WHERE 时间 >= @开始时间 AND 时间 <= @结束时间", __表名);
+                    var __参数列表 = new DbParameter[2] { new SqlParameter("开始时间", __条件.开始时间), new SqlParameter("结束时间", __条件.结束时间) };
+                    __总数 = (int)SQLHelper.ExecuteScalar(__连接, __sql, __参数列表);
+
+                    __sql = string.Format("SELECT COUNT(DISTINCT [号码]) FROM {0} WHERE 时间 >= @开始时间 AND 时间 <= @结束时间", __表名);
+                    __参数列表 = new DbParameter[2] { new SqlParameter("开始时间", __条件.开始时间), new SqlParameter("结束时间", __条件.结束时间) };
+                    __号码总数 = (int)SQLHelper.ExecuteScalar(__连接, __sql, __参数列表);
+                }
+                else
+                {
+                    __号码总数 = __号码列表.Count;
+                    var __sql = string.Format("SELECT [号码] FROM {0} WHERE 时间 >= @开始时间 AND 时间 <= @结束时间", __表名);
+                    var __参数列表 = new DbParameter[2] { new SqlParameter("开始时间", __条件.开始时间), new SqlParameter("结束时间", __条件.结束时间) };
+                    using (var __访问器 = SQLHelper.ExecuteReader(__连接, __sql, __参数列表))
+                    {
+                        while (__访问器.Read())
+                        {
+                            var __号码 = __访问器.GetString(0);
+                            if (__号码列表.Contains(__号码))
+                            {
+                                __总数++;
+                            }
+                        }
+                    }
+                }
+            }
+            if (__总数 == 0)
+            {
+                return 0;
+            }
+            return (float)(__条件.结束时间.Subtract(__条件.开始时间).TotalSeconds / (__总数 * 1.0f / __号码总数));
+        }
+
+        bool 存在表(SqlConnection __连接, DateTime __时间)
+        {
+            var __表名 = _表前缀 + __时间.Date.ToString("yyyyMMdd");
+            var __sql = string.Format("SELECT 1 FROM SYSOBJECTS WHERE XTYPE='U' AND NAME = '{0}'", __表名);
+            var __数量 = SQLHelper.ExecuteScalar(__连接, __sql); ;
+            if (__数量 == null || (int)__数量 == 0)
+            {
+                return false;
+            }
+            return true;
         }
     }
 

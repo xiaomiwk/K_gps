@@ -13,11 +13,13 @@ namespace GPS
 {
     public interface IB订阅
     {
-        void 增加(List<M号码段> __号码范围);
+        void 增加(List<string> __号码列表);
 
-        void 删除(List<M号码段> __号码范围);
+        void 删除(List<string> __号码列表);
 
-        event Action<int, MGPS> 位置更新;
+        event Action<string, MGPS> 位置更新;
+
+        event Action<string, string> 状态更新;
 
     }
 
@@ -32,19 +34,19 @@ namespace GPS
             _IT客户端 = __IT客户端;
         }
 
-        public void 增加(List<M号码段> __号码范围)
+        public void 增加(List<string> __号码列表)
         {
-            _IT客户端.执行方法(_对象名称, "增加", new Dictionary<string, string> { { "号码范围", HJSON.序列化(__号码范围) } });
+            _IT客户端.执行方法(_对象名称, "增加", new Dictionary<string, string> { { "号码列表", HJSON.序列化(__号码列表) } });
         }
 
-        public void 删除(List<M号码段> __号码范围)
+        public void 删除(List<string> __号码列表)
         {
-            _IT客户端.执行方法(_对象名称, "删除", new Dictionary<string, string> { { "号码范围", HJSON.序列化(__号码范围) } });
+            _IT客户端.执行方法(_对象名称, "删除", new Dictionary<string, string> { { "号码列表", HJSON.序列化(__号码列表) } });
         }
 
-        private Action<int, MGPS> _GPS上报;
+        private Action<string, MGPS> _GPS上报;
 
-        public event Action<int, MGPS> 位置更新
+        public event Action<string, MGPS> 位置更新
         {
             add
             {
@@ -69,7 +71,7 @@ namespace GPS
 
         private void 处理GPS上报(Dictionary<string, string> __实参列表)
         {
-            var __号码 = int.Parse(__实参列表["号码"]);
+            var __号码 = __实参列表["号码"];
             var __GPS = HJSON.反序列化<MGPS>(__实参列表["GPS"]);
             if (__GPS.时间 > DateTime.Now)
             {
@@ -78,10 +80,48 @@ namespace GPS
             OnGps上报(__号码, __GPS);
         }
 
-        protected virtual void OnGps上报(int __号码, MGPS __GPS)
+        protected virtual void OnGps上报(string __号码, MGPS __GPS)
         {
             var handler = _GPS上报;
             if (handler != null) handler(__号码, __GPS);
+        }
+
+        private Action<string, string> _状态上报;
+
+        public event Action<string, string> 状态更新
+        {
+            add
+            {
+                if (_状态上报 == null)
+                {
+                    _IT客户端.订阅事件(_对象名称, "状态上报", 处理状态上报);
+                }
+                _状态上报 += value;
+            }
+            remove
+            {
+                if (_状态上报 != null)
+                {
+                    _状态上报 -= value;
+                    if (_状态上报 == null)
+                    {
+                        _IT客户端.注销事件(_对象名称, "状态上报", 处理状态上报);
+                    }
+                }
+            }
+        }
+
+        private void 处理状态上报(Dictionary<string, string> __实参列表)
+        {
+            var __号码 = __实参列表["号码"];
+            var __状态 = __实参列表["状态"];
+            On状态上报(__号码, __状态);
+        }
+
+        protected virtual void On状态上报(string __号码, string __状态)
+        {
+            var handler = _状态上报;
+            if (handler != null) handler(__号码, __状态);
         }
     }
 
@@ -91,9 +131,9 @@ namespace GPS
 
         private readonly double _参照纬度 = 32.0617;
 
-        private readonly List<int> _订阅列表 = new List<int>();
+        private readonly List<string> _订阅列表 = new List<string>();
 
-        private readonly ReaderWriterLockSlim __订阅列表锁 = new ReaderWriterLockSlim(LockRecursionPolicy.NoRecursion);
+        private readonly ReaderWriterLockSlim _订阅列表锁 = new ReaderWriterLockSlim(LockRecursionPolicy.NoRecursion);
 
         public B订阅_模拟()
         {
@@ -101,20 +141,20 @@ namespace GPS
             Task.Factory.StartNew(() =>
             {
                 int __更新频率 = 8000;//毫秒/次
-                var __轨迹缓存 = new Dictionary<int, Tuple<double, double>>();
+                var __轨迹缓存 = new Dictionary<string, Tuple<double, double>>();
                 int __数量 = 0;
                 while (true)
                 {
                     try
                     {
-                        __订阅列表锁.EnterReadLock();
-                        var __列表 = new List<int>(_订阅列表);
+                        _订阅列表锁.EnterReadLock();
+                        var __列表 = new List<string>(_订阅列表);
                         if (__列表.Count != __数量)
                         {
                             H调试.记录("模拟订阅数量: " + __列表.Count, TraceEventType.Warning);
                             __数量 = __列表.Count;
                         }
-                        __订阅列表锁.ExitReadLock();
+                        _订阅列表锁.ExitReadLock();
                         var __监视器 = new Stopwatch();
                         __监视器.Start();
                         foreach (var __号码 in __列表)
@@ -166,43 +206,45 @@ namespace GPS
             });
         }
 
-        public void 增加(List<M号码段> __号码范围)
+        public void 增加(List<string> __号码列表)
         {
-            __订阅列表锁.EnterWriteLock();
-            __号码范围.ForEach(q =>
+            _订阅列表锁.EnterWriteLock();
+            __号码列表.ForEach(q =>
             {
-                for (int i = q.起始; i <= q.结束; i++)
+                if (!_订阅列表.Contains(q))
                 {
-                    if (!_订阅列表.Contains(i))
-                    {
-                        _订阅列表.Add(i);
-                    }
+                    _订阅列表.Add(q);
                 }
             });
-            __订阅列表锁.ExitWriteLock();
+            _订阅列表锁.ExitWriteLock();
         }
 
-        public void 删除(List<M号码段> __号码范围)
+        public void 删除(List<string> __号码列表)
         {
-            __订阅列表锁.EnterWriteLock();
-            __号码范围.ForEach(q =>
+            _订阅列表锁.EnterWriteLock();
+            __号码列表.ForEach(q =>
             {
-                for (int i = q.起始; i <= q.结束; i++)
+                if (_订阅列表.Contains(q))
                 {
-                    if (_订阅列表.Contains(i))
-                    {
-                        _订阅列表.Remove(i);
-                    }
+                    _订阅列表.Remove(q);
                 }
             });
-            __订阅列表锁.ExitWriteLock();
+            _订阅列表锁.ExitWriteLock();
         }
 
-        public event Action<int, MGPS> 位置更新;
+        public event Action<string, MGPS> 位置更新;
 
-        protected virtual void On位置更新(int arg1, MGPS arg2)
+        protected virtual void On位置更新(string arg1, MGPS arg2)
         {
             var handler = 位置更新;
+            if (handler != null) handler(arg1, arg2);
+        }
+
+        public event Action<string, string> 状态更新;
+
+        protected virtual void On状态更新(string arg1, string arg2)
+        {
+            var handler = 状态更新;
             if (handler != null) handler(arg1, arg2);
         }
     }
